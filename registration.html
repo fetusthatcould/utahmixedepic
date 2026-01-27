@@ -1,0 +1,237 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Registration - Utah Mixed Epic</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <!-- Navigation -->
+    <nav class="navbar">
+      <div class="container">
+        <div class="logo">
+          <h1>Utah Mixed Epic</h1>
+        </div>
+        <ul class="nav-links">
+          <li><a href="index.html">Home</a></li>
+          <li><a href="courses.html">Courses</a></li>
+          <li><a href="registration.html" class="active">Register</a></li>
+          <li><a href="more-info.html">More Info</a></li>
+        </ul>
+      </div>
+    </nav>
+
+    <!-- Page Header -->
+    <section class="page-header">
+      <h1>Register for Utah Mixed Epic</h1>
+      <p>Secure Your Spot Today</p>
+    </section>
+
+    <!-- Registration Section -->
+    <section class="registration-section">
+      <div class="container">
+        <div class="registration-wrapper">
+          <div class="registration-form-wrapper">
+            <h2>Registration Form</h2>
+            <form id="registrationForm" class="registration-form">
+              <div class="form-group">
+                <label for="firstName">First Name *</label>
+                <input type="text" id="firstName" name="firstName" required />
+              </div>
+
+              <div class="form-group">
+                <label for="lastName">Last Name *</label>
+                <input type="text" id="lastName" name="lastName" required />
+              </div>
+
+              <div class="form-row">
+                <div class="form-group">
+                  <label for="email">Email Address *</label>
+                  <input type="email" id="email" name="email" required />
+                </div>
+                <div class="form-group">
+                  <label for="phone">Phone Number *</label>
+                  <input type="tel" id="phone" name="phone" required />
+                </div>
+              </div>
+
+              <div class="form-row">
+                <div class="form-group">
+                  <label for="age">Age *</label>
+                  <input type="number" id="age" name="age" required />
+                </div>
+
+              <div class="form-group">
+                <label for="course">Select Your Route *</label>
+                <select
+                  id="course"
+                  name="course"
+                  required
+                >
+                  <option value="">-- Select Route --</option>
+                  <option value="Jello Salad">
+                    Jello Salad - 150 miles
+                  </option>
+                  <option value="Utah Scones">
+                    Scones - 350 miles
+                  </option>
+                  <option value="Funeral Potatoes">
+                    Funeral Potatoes - 720 miles
+                  </option>
+                </select>
+              </div>
+
+              <div class="form-group">
+                <label for="emergencyContact">Emergency Contact Name *</label>
+                <input
+                  type="text"
+                  id="emergencyContact"
+                  name="emergencyContact"
+                  required
+                />
+              </div>
+
+              <div class="form-group">
+                <label for="emergencyPhone">Emergency Contact Phone *</label>
+                <input
+                  type="tel"
+                  id="emergencyPhone"
+                  name="emergencyPhone"
+                  required
+                />
+              </div>
+
+              <div class="form-group checkbox">
+                <input type="checkbox" id="waiver" name="waiver" required />
+                <label for="waiver"
+                  >I acknowledge that I have read and agree to the
+                  <a href="#" class="link"
+                    >Race Waiver and Terms & Conditions</a
+                  >
+                  *</label
+                >
+              </div>
+
+              <div class="form-group checkbox">
+                <input type="checkbox" id="newsletter" name="newsletter" />
+                <label for="newsletter"
+                  >Subscribe to our newsletter for race updates and upcoming
+                  events</label
+                >
+              </div>
+
+              <button type="submit" class="submit-button">
+                Complete Registration
+              </button>
+            </form>
+          </div>
+
+          <div class="registration-sidebar">
+            <div class="registration-info">
+              <h4>Available Routes</h4>
+              <ul>
+                <li><strong>Jello Salad:</strong> 150 miles</li>
+                <li><strong>Scones:</strong> 350 miles</li>
+                <li><strong>Funeral Potatoes:</strong> 720 miles</li>
+              </ul>
+            </div>
+
+            <div class="registration-info">
+              <h4>About This Event</h4>
+              <ul>
+                <li>✓ Completely Free</li>
+                <li>✓ Unsanctioned Event</li>
+                <li>✓ Finish Times Recorded</li>
+                <li>✓ Solo or Duo Categories</li>
+                <li>✓ Provided Route & Maps</li>
+                <li>✓ Honor System Based</li>
+              </ul>
+            </div>
+
+            <div class="registration-note">
+              <p>
+                <strong>Note:</strong> This is a free, unsanctioned event. You are responsible for your own navigation and well-being. All riders agree to follow the event guidelines and honor system.
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- FAQ Section -->
+    <section class="faq-section">
+      <div class="container">
+        <h2>Registration FAQ</h2>
+        <div class="faq-grid">
+          <div class="faq-item">
+            <h4>Is there a registration fee?</h4>
+            <p>
+              No! This is a completely free event. There are no entry fees.
+            </p>
+          </div>
+          <div class="faq-item">
+            <h4>What is the age minimum?</h4>
+            <p>
+              Participants must be at least 16 years old. Riders under 18 must have parental consent.
+            </p>
+          </div>
+          <div class="faq-item">
+            <h4>Can I change my route after registering?</h4>
+            <p>
+              Yes, you can change your route up until the start of the event. Contact info@utahmixedepic.com for changes.
+            </p>
+          </div>
+          <div class="faq-item">
+            <h4>What route should I choose?</h4>
+            <p>
+              Choose based on your experience level and available time. Jello Salad (150 mi) is beginner-friendly, Scones (350 mi) is intermediate, and Funeral Potatoes (720 mi) is for experienced ultra-cyclists.
+            </p>
+          </div>
+          <div class="faq-item">
+            <h4>Do I need special equipment?</h4>
+            <p>
+              You'll need a bike, helmet, lights, repair tools, navigation device, food, water, and appropriate clothing. Check the More Info page for a complete equipment list.
+            </p>
+          </div>
+          <div class="faq-item">
+            <h4>Where can I ask questions?</h4>
+            <p>
+              Post questions on our Facebook group or on bikepacking.net. The community is happy to help!
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+      <div class="container">
+        <div class="footer-content">
+          <div class="footer-section">
+            <h5>Utah Mixed Epic</h5>
+            <p>The premier ultra bike racing experience in the West</p>
+          </div>
+          <div class="footer-section">
+            <h5>Quick Links</h5>
+            <ul>
+              <li><a href="courses.html">Courses</a></li>
+              <li><a href="registration.html">Register</a></li>
+              <li><a href="more-info.html">More Info</a></li>
+            </ul>
+          </div>
+          <div class="footer-section">
+            <h5>Contact</h5>
+            <p>Email: info@utahmixedepic.com</p>
+            <p>Phone: (801) XXX-XXXX</p>
+          </div>
+        </div>
+        <div class="footer-bottom">
+          <p>&copy; 2026 Utah Mixed Epic. All rights reserved.</p>
+        </div>
+      </div>
+    </footer>
+
+    <script src="script.js"></script>
+  </body>
+</html>
