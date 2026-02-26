@@ -44,6 +44,55 @@ html {
   font-size: 16px;
 }
 
+/* Modal/notification overlay */
+.notification-modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.6);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 2000;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.3s ease;
+}
+.notification-modal.show {
+  opacity: 1;
+  pointer-events: all;
+}
+.notification-modal .modal-content {
+  background: var(--bg-white);
+  padding: var(--spacing-xl);
+  border-radius: var(--border-radius);
+  max-width: 500px;
+  width: 90%;
+  box-shadow: var(--shadow-lg);
+  text-align: center;
+  position: relative;
+}
+.notification-modal .modal-content h2 {
+  margin-bottom: var(--spacing-md);
+  color: var(--success-color);
+}
+.notification-modal .modal-content p {
+  margin-bottom: var(--spacing-lg);
+  color: var(--text-dark);
+}
+.notification-modal .modal-close {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  background: transparent;
+  border: none;
+  font-size: 1.5rem;
+  cursor: pointer;
+  color: var(--text-light);
+}
+
 body {
   font-family: var(--font-primary);
   color: var(--text-dark);
@@ -288,7 +337,7 @@ li {
   );
   color: var(--bg-white);
   width: 100%;
-  padding: 1rem;
+  padding: 1.5rem 2rem; /* increased padding for larger button */
   font-size: 1.1rem;
 }
 
@@ -414,7 +463,9 @@ li {
   height: auto;
   display: block;
   filter: grayscale(10%) contrast(1.05); /* Gives it that professional grit */
-  transition: filter 0.3s ease, transform 0.5s ease;
+  transition:
+    filter 0.3s ease,
+    transform 0.5s ease;
 }
 
 /* Hover Effect */
@@ -698,6 +749,13 @@ li {
   margin-top: var(--spacing-xl);
 }
 
+/* keep sidebar visible while scrolling the form */
+.registration-sidebar {
+  align-self: start; /* so sticky works inside grid */
+  position: sticky;
+  top: calc(var(--spacing-xl) + 2rem); /* a bit below header */
+}
+
 .registration-form-wrapper {
   background: var(--bg-white);
   padding: var(--spacing-xl);
@@ -811,7 +869,7 @@ li {
 
 .registration-info h4 {
   color: var(--primary-color);
-  margin-top: 0;
+  margin-top: 10;
 }
 
 .registration-info ul {
@@ -1029,8 +1087,14 @@ li {
     grid-template-columns: 1fr;
   }
 
+  /* keep sidebar beside form at all widths - remove collapse */
   .registration-wrapper {
-    grid-template-columns: 1fr;
+    grid-template-columns: 2fr 1fr;
+  }
+  /* disable sticky on narrow screens */
+  .registration-sidebar {
+    position: static;
+    top: auto;
   }
 
   .faq-grid {
