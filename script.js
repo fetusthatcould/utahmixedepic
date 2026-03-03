@@ -1,8 +1,116 @@
+// Registration Timeline Management
+const REGISTRATION_OPEN_DATE = new Date("2026-06-25");
+const RACE_DATE = new Date("2026-09-25");
+
+function checkRegistrationStatus() {
+  const today = new Date();
+  today.setHours(0, 0, 0, 0);
+
+  if (today < REGISTRATION_OPEN_DATE) {
+    return "pre-registration";
+  } else if (today < RACE_DATE) {
+    return "registration-open";
+  } else {
+    return "closed";
+  }
+}
+
+function updateRegistrationBanner() {
+  const status = checkRegistrationStatus();
+  const bannerContainer = document.querySelector(".registration-banner");
+
+  if (!bannerContainer) {
+    // Create banner if it doesn't exist
+    const banner = document.createElement("div");
+    banner.className = "registration-banner";
+    banner.id = "registrationBanner";
+
+    const hero = document.querySelector(".hero");
+    if (hero && hero.parentNode) {
+      hero.parentNode.insertBefore(banner, hero.nextSibling);
+    }
+  }
+
+  const banner = document.getElementById("registrationBanner");
+
+  if (status === "pre-registration") {
+    banner.className = "registration-banner pre-registration";
+    banner.innerHTML = `
+      <div class="banner-content">
+        <h3>Registration Opens June 25, 2026</h3>
+        <p>Mark your calendar for early registration access to the Utah Mixed Epic</p>
+      </div>
+    `;
+    banner.style.display = "block";
+  } else if (status === "registration-open") {
+    banner.className = "registration-banner registration-open";
+    banner.innerHTML = `
+      <div class="banner-content">
+        <h3>Registration is Now Open!</h3>
+        <p>Secure your spot for the Utah Mixed Epic 2026</p>
+        <a href="registration.html" class="banner-cta">Register Now</a>
+      </div>
+    `;
+    banner.style.display = "block";
+  } else {
+    banner.style.display = "none";
+  }
+
+  // Update hero CTA button state
+  const heroCTA = document.querySelector(".hero .cta-button");
+  if (heroCTA) {
+    if (status === "pre-registration") {
+      heroCTA.disabled = true;
+      heroCTA.style.opacity = "0.6";
+      heroCTA.style.cursor = "not-allowed";
+      heroCTA.title = "Registration opens June 25, 2026";
+    } else if (status === "registration-open") {
+      heroCTA.disabled = false;
+      heroCTA.style.opacity = "1";
+      heroCTA.style.cursor = "pointer";
+      heroCTA.title = "";
+    } else {
+      heroCTA.disabled = true;
+      heroCTA.style.opacity = "0.6";
+      heroCTA.style.cursor = "not-allowed";
+      heroCTA.title = "Registration has closed";
+    }
+  }
+}
+
 // Registration Form - Category Selection
+// Photo gallery settings
+const PHOTO_GALLERY_ENDPOINT = ""; // set to your Google Apps Script JSON URL
+
+function loadPhotoGallery() {
+  if (!PHOTO_GALLERY_ENDPOINT) return;
+
+  fetch(PHOTO_GALLERY_ENDPOINT)
+    .then((resp) => resp.json())
+    .then((data) => {
+      if (!Array.isArray(data)) return;
+      const gallery = document.querySelector(".masonry-gallery");
+      if (!gallery) return;
+      gallery.innerHTML = "";
+      data.forEach((url, idx) => {
+        const item = document.createElement("div");
+        item.className = "masonry-item" + (idx % 5 === 0 ? " tall" : "");
+        const img = document.createElement("img");
+        img.src = url;
+        img.alt = "Gallery image";
+        item.appendChild(img);
+        gallery.appendChild(item);
+      });
+    })
+    .catch((err) => console.error("Gallery load error:", err));
+}
+
 // (No pricing calculations needed - event is free)
 
 // Form Submission
 document.addEventListener("DOMContentLoaded", function () {
+  loadPhotoGallery();
+  updateRegistrationBanner();
   const registrationForm = document.getElementById("registrationForm");
 
   if (registrationForm) {
@@ -23,10 +131,11 @@ document.addEventListener("DOMContentLoaded", function () {
         lastName: document.getElementById("lastName").value,
         email: document.getElementById("email").value,
         phone: document.getElementById("phone").value,
-        age: document.getElementById("age").value,
         course: document.getElementById("course").value,
         emergencyContact: document.getElementById("emergencyContact").value,
         emergencyPhone: document.getElementById("emergencyPhone").value,
+        waiver: document.getElementById("waiver").checked,
+        newsletter: document.getElementById("newsletter").checked,
       };
 
       // Validate form
@@ -67,12 +176,6 @@ function validateForm(data) {
   const phoneRegex = /^[0-9\-\+\(\)\s]{10,}$/;
   if (!phoneRegex.test(data.phone)) {
     alert("Please enter a valid phone number.");
-    return false;
-  }
-
-  // Age validation
-  if (parseInt(data.age) < 16) {
-    alert("You must be at least 16 years old to participate.");
     return false;
   }
 
@@ -259,7 +362,6 @@ Thank you for registering, ${data.firstName}!<br><br>
 - Email: ${data.email}<br>
 - Phone: ${data.phone}<br>
 - Route: ${selectedCourse}<br>
-- Age: ${data.age}<br>
 - Emergency Contact: ${data.emergencyContact}<br><br>
 A confirmation email will be sent to ${data.email} shortly.<br>
 Check your email for race day details, route maps, and further instructions.<br><br>

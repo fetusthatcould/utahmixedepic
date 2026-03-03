@@ -1,0 +1,273 @@
+/* ===== 00. REGISTRATION BANNER ===== */
+.registration-banner {
+  padding: var(--spacing-lg) var(--spacing-md);
+  text-align: center;
+  animation: slideDown 0.5s ease-out;
+}
+
+.registration-banner.pre-registration {
+  background-color: #fff3cd;
+  border-bottom: 2px solid #ffc107;
+  color: #856404;
+}
+
+.registration-banner.pre-registration h3 {
+  margin: 0 0 var(--spacing-xs) 0;
+  font-size: 1.3rem;
+  font-weight: 700;
+}
+
+.registration-banner.pre-registration p {
+  margin: 0;
+  font-size: 0.95rem;
+}
+
+.registration-banner.registration-open {
+  background: linear-gradient(135deg, #d4edda 0%, #c3e6cb 100%);
+  border-bottom: 2px solid #28a745;
+  color: #155724;
+}
+
+.registration-banner.registration-open h3 {
+  margin: 0 0 var(--spacing-xs) 0;
+  font-size: 1.3rem;
+  font-weight: 700;
+}
+
+.registration-banner.registration-open p {
+  margin: 0 0 var(--spacing-md) 0;
+  font-size: 0.95rem;
+}
+
+.banner-cta {
+  display: inline-block;
+  padding: var(--spacing-sm) var(--spacing-md);
+  background-color: #28a745;
+  color: white;
+  text-decoration: none;
+  border-radius: var(--border-radius);
+  font-weight: 600;
+  transition: var(--transition);
+}
+
+.banner-cta:hover {
+  background-color: #218838;
+  transform: translateY(-2px);
+}
+
+@keyframes slideDown {
+  from {
+    opacity: 0;
+    transform: translateY(-20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* ===== 01. HERO SECTION (REPLICATED EXACTLY) ===== */
+.hero {
+  background: linear-gradient(
+    135deg,
+    rgba(93, 78, 55, 0.75),
+    rgba(107, 91, 69, 0.75)
+  );
+  background-size: cover;
+  background-position: center;
+  color: var(--bg-white);
+  padding: 8rem var(--spacing-md) 6rem;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+}
+
+.hero-background {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 1;
+  overflow: hidden;
+}
+
+.hero-background img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  opacity: 0.4;
+}
+
+.hero-content {
+  position: relative;
+  z-index: 10;
+  animation: slideUp 0.8s ease-out;
+}
+
+.hero-subtitle {
+  font-size: 1.1rem;
+  color: rgba(255, 255, 255, 0.85);
+  font-weight: 600;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  margin-bottom: var(--spacing-lg);
+}
+
+.hero h2 {
+  font-size: 4.5rem;
+  margin-bottom: var(--spacing-md);
+  color: var(--bg-white);
+  font-weight: 900;
+  letter-spacing: 2px;
+}
+
+.hero p {
+  font-size: 1.3rem;
+  margin-bottom: var(--spacing-xl);
+  color: rgba(255, 255, 255, 0.9);
+}
+
+@keyframes slideUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* ===== 02. STORY & NARRATIVE BLOCKS ===== */
+.story-section {
+  background-color: var(--bg-white);
+  padding: var(--spacing-xxl) var(--spacing-md);
+}
+
+.story-content {
+  max-width: 900px;
+  margin: 0 auto;
+}
+
+.story-content p {
+  font-size: 1.1rem;
+  line-height: 1.8;
+  margin-bottom: var(--spacing-lg);
+  color: var(--text-light);
+  text-align: center;
+}
+
+/* ===== 03. OZARK-STYLE MASONRY GALLERY ===== */
+.gallery-section {
+  padding: var(--spacing-xxl) 0;
+  background-color: var(--bg-white);
+}
+
+.gallery-intro {
+  text-align: center;
+  margin-bottom: var(--spacing-xl);
+  max-width: 800px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.gallery-intro .eyebrow {
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  font-size: 0.9rem;
+  color: var(--accent-color);
+  font-weight: 700;
+  margin-bottom: var(--spacing-xs);
+}
+
+.masonry-gallery {
+  column-count: 3;
+  column-gap: 15px;
+  width: 100%;
+}
+
+.masonry-item {
+  display: inline-block;
+  width: 100%;
+  margin-bottom: 15px;
+  border-radius: 4px;
+  overflow: hidden;
+  background: var(--bg-light);
+  transition: transform 0.3s ease;
+}
+
+.masonry-item img {
+  width: 100%;
+  height: auto;
+  display: block;
+  filter: grayscale(10%) contrast(1.05);
+  transition:
+    filter 0.3s ease,
+    transform 0.5s ease;
+}
+
+.masonry-item:hover img {
+  filter: grayscale(0%) contrast(1);
+  transform: scale(1.03);
+}
+
+/* ===== 04. CTA SECTION ===== */
+.cta-section {
+  background: linear-gradient(
+    135deg,
+    var(--primary-color),
+    var(--secondary-color)
+  );
+  color: var(--bg-white);
+  text-align: center;
+  padding: var(--spacing-xxl) var(--spacing-md);
+}
+
+.cta-section h2,
+.cta-section p {
+  color: var(--bg-white);
+}
+
+.cta-button-secondary {
+  display: inline-block;
+  padding: var(--spacing-md) var(--spacing-lg);
+  background-color: var(--accent-color);
+  color: var(--bg-white);
+  border-radius: var(--border-radius);
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  margin-top: var(--spacing-md);
+  transition: var(--transition);
+}
+
+.cta-button-secondary:hover {
+  background-color: #ff5722;
+  transform: translateY(-3px);
+}
+
+/* ===== 05. HOME RESPONSIVE OVERRIDES ===== */
+@media (max-width: 992px) {
+  .masonry-gallery {
+    column-count: 2;
+  }
+}
+
+@media (max-width: 768px) {
+  .hero {
+    padding: 4rem var(--spacing-md) 3rem;
+  }
+  .hero h2 {
+    font-size: 2rem;
+  }
+  .hero p {
+    font-size: 1.1rem;
+  }
+}
+
+@media (max-width: 600px) {
+  .masonry-gallery {
+    column-count: 1;
+  }
+}
