@@ -92,7 +92,11 @@ function loadPhotoGallery() {
 
   console.log("📡 Fetching from:", PHOTO_GALLERY_ENDPOINT);
 
-  fetch(PHOTO_GALLERY_ENDPOINT)
+  fetch(PHOTO_GALLERY_ENDPOINT, {
+    method: "GET",
+    mode: "cors",
+    cache: "no-cache"
+  })
     .then((resp) => {
       console.log("📨 Response status:", resp.status, resp.statusText);
       if (!resp.ok) {
