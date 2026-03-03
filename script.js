@@ -80,7 +80,7 @@ function updateRegistrationBanner() {
 
 // Registration Form - Category Selection
 // Photo gallery settings - Google Apps Script Proxy for Google Photos
-const PHOTO_GALLERY_ENDPOINT = "https://script.google.com/macros/s/AKfycbxAMR9sDiWnaJDJFxjsoHBXYZNXa3hSFVZ9SIz_1ztpXbcwW-ecmRwmS9UJmD8qJnrqEg/exec";
+const PHOTO_GALLERY_ENDPOINT = "https://script.google.com/macros/s/AKfycbx_UJSvn2V_hcuD_HrC73WBXJPDwbNUiBMyath_gJnPaCpS8bhMDNVX4GF1yobZ6uns/exec";
 
 function loadPhotoGallery() {
   console.log("🖼️ Gallery loader starting...");
