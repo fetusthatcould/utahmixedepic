@@ -79,25 +79,41 @@ function updateRegistrationBanner() {
 }
 
 // Registration Form - Category Selection
-// Photo gallery settings
-const PHOTO_GALLERY_ENDPOINT = ""; // set to your Google Apps Script JSON URL
+// Photo gallery settings - Google Apps Script Proxy for Google Photos
+const PHOTO_GALLERY_ENDPOINT = "https://script.google.com/macros/s/AKfycby9Rq8Z1lFDCinSfycbNkrnDx1ZyIb4SbxKhoVYBwvbbEmVPrHrrXWe1w215KrWaN3oeQ/exec";
 
 function loadPhotoGallery() {
-  if (!PHOTO_GALLERY_ENDPOINT) return;
+  if (!PHOTO_GALLERY_ENDPOINT) {
+    console.warn("Photo gallery endpoint not configured");
+    return;
+  }
 
   fetch(PHOTO_GALLERY_ENDPOINT)
     .then((resp) => resp.json())
     .then((data) => {
-      if (!Array.isArray(data)) return;
+      // Handle both array format and object with error
+      if (data.error) {
+        console.error("Gallery error:", data.error);
+        return;
+      }
+
+      const photoUrls = Array.isArray(data) ? data : [];
+      if (photoUrls.length === 0) {
+        console.warn("No photos found in gallery");
+        return;
+      }
+
       const gallery = document.querySelector(".masonry-gallery");
       if (!gallery) return;
+
       gallery.innerHTML = "";
-      data.forEach((url, idx) => {
+      photoUrls.forEach((url, idx) => {
         const item = document.createElement("div");
         item.className = "masonry-item" + (idx % 5 === 0 ? " tall" : "");
         const img = document.createElement("img");
         img.src = url;
         img.alt = "Gallery image";
+        img.loading = "lazy";
         item.appendChild(img);
         gallery.appendChild(item);
       });
