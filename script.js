@@ -83,29 +83,47 @@ function updateRegistrationBanner() {
 const PHOTO_GALLERY_ENDPOINT = "https://script.google.com/macros/s/AKfycby9Rq8Z1lFDCinSfycbNkrnDx1ZyIb4SbxKhoVYBwvbbEmVPrHrrXWe1w215KrWaN3oeQ/exec";
 
 function loadPhotoGallery() {
+  console.log("🖼️ Gallery loader starting...");
+
   if (!PHOTO_GALLERY_ENDPOINT) {
-    console.warn("Photo gallery endpoint not configured");
+    console.warn("⚠️ Photo gallery endpoint not configured");
     return;
   }
 
+  console.log("📡 Fetching from:", PHOTO_GALLERY_ENDPOINT);
+
   fetch(PHOTO_GALLERY_ENDPOINT)
-    .then((resp) => resp.json())
+    .then((resp) => {
+      console.log("📨 Response status:", resp.status, resp.statusText);
+      if (!resp.ok) {
+        throw new Error(`HTTP ${resp.status}: ${resp.statusText}`);
+      }
+      return resp.json();
+    })
     .then((data) => {
-      // Handle both array format and object with error
+      console.log("📦 Raw response data:", data);
+
+      // Handle error response from Apps Script
       if (data.error) {
-        console.error("Gallery error:", data.error);
+        console.error("❌ Gallery error from script:", data.error);
         return;
       }
 
       const photoUrls = Array.isArray(data) ? data : [];
+      console.log("✓ Photo URLs found:", photoUrls.length);
+
       if (photoUrls.length === 0) {
-        console.warn("No photos found in gallery");
+        console.warn("⚠️ No photos found in gallery");
         return;
       }
 
       const gallery = document.querySelector(".masonry-gallery");
-      if (!gallery) return;
+      if (!gallery) {
+        console.error("❌ Gallery element not found in DOM");
+        return;
+      }
 
+      console.log("🎨 Clearing gallery and adding", photoUrls.length, "photos...");
       gallery.innerHTML = "";
       photoUrls.forEach((url, idx) => {
         const item = document.createElement("div");
@@ -117,8 +135,11 @@ function loadPhotoGallery() {
         item.appendChild(img);
         gallery.appendChild(item);
       });
+      console.log("✅ Gallery loaded successfully!");
     })
-    .catch((err) => console.error("Gallery load error:", err));
+    .catch((err) => {
+      console.error("❌ Gallery load error:", err.message, err);
+    });
 }
 
 // (No pricing calculations needed - event is free)
