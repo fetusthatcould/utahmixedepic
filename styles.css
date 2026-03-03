@@ -615,108 +615,137 @@ li {
 }
 
 /* ===== COURSES ===== */
-.courses-grid {
-  display: grid;
-  gap: var(--spacing-xl);
-  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-  margin-top: var(--spacing-xl);
-}
 
-.course-card {
-  background: var(--bg-white);
-  border-radius: var(--border-radius);
-  overflow: hidden;
-  box-shadow: var(--shadow-md);
-  transition: var(--transition);
+.course-card-premium {
   display: flex;
-  flex-direction: column;
+  background: var(--bg-white);
+  border-radius: 12px;
+  overflow: hidden;
+  margin-bottom: var(--spacing-xxl);
+  box-shadow: var(--shadow-md);
   border: 1px solid var(--border-color);
 }
 
-.course-card:hover {
-  transform: translateY(-8px);
-  box-shadow: var(--shadow-lg);
-  border-color: var(--accent-color);
+.course-map-side {
+  flex: 1.2; /* Gives more room to the map */
+  background: #eee;
+  min-height: 500px;
 }
 
-.course-card.featured-card {
-  border: 3px solid var(--accent-color);
-}
-
-.course-header {
-  background: linear-gradient(
-    135deg,
-    var(--primary-color),
-    var(--secondary-color)
-  );
-  color: var(--bg-white);
-  padding: var(--spacing-lg);
+.course-info-side {
+  flex: 0.8;
+  padding: var(--spacing-xl);
   display: flex;
-  justify-content: space-between;
-  align-items: center;
+  flex-direction: column;
+  justify-content: center;
 }
 
-.course-header h3 {
-  margin: 0;
-  color: var(--bg-white);
-  font-size: 1.5rem;
-}
-
-.difficulty {
-  padding: var(--spacing-xs) var(--spacing-sm);
-  border-radius: var(--border-radius);
-  font-size: 0.85rem;
-  font-weight: 700;
+.course-tag {
+  color: var(--accent-color);
   text-transform: uppercase;
-  letter-spacing: 0.5px;
+  font-weight: 800;
+  font-size: 0.75rem;
+  letter-spacing: 1.5px;
+  margin-bottom: var(--spacing-xs);
 }
 
-.difficulty.easy {
-  background-color: var(--success-color);
-  color: var(--bg-white);
-}
-
-.difficulty.hard {
-  background-color: var(--warning-color);
-  color: var(--bg-white);
-}
-
-.difficulty.extreme {
-  background-color: var(--error-color);
-  color: var(--bg-white);
-}
-
-.course-details {
-  padding: var(--spacing-lg);
-  background: var(--bg-light);
-}
-
-.detail-item {
-  margin-bottom: var(--spacing-md);
+.course-info-side h3 {
+  font-size: 2.2rem;
+  margin-bottom: var(--spacing-sm);
   color: var(--text-dark);
 }
 
-.detail-item strong {
-  color: var(--primary-color);
+.course-stats-row {
+  display: flex;
+  gap: var(--spacing-md);
+  margin-bottom: var(--spacing-md);
+  padding-bottom: var(--spacing-md);
+  border-bottom: 1px solid var(--border-color);
+}
+
+.stat {
+  font-size: 0.9rem;
+  color: var(--text-light);
+}
+
+.stat strong {
   display: block;
-}
-
-.course-description {
-  padding: var(--spacing-lg);
-  flex-grow: 1;
-}
-
-.course-description h5 {
+  font-size: 1.2rem;
   color: var(--primary-color);
-  margin-top: var(--spacing-lg);
 }
 
-.course-description ul {
-  margin-left: var(--spacing-lg);
+.cta-button-small {
+  display: inline-block;
+  margin-top: var(--spacing-md);
+  padding: 0.6rem 1.2rem;
+  background: var(--primary-color);
+  color: white;
+  text-decoration: none;
+  border-radius: 4px;
+  font-size: 0.8rem;
+  font-weight: 700;
+  text-align: center;
+}
+/* Placeholder for Routes Under Development */
+.development-placeholder {
+  background-color: var(--bg-light);
+  /* Added a slightly darker stripe for better contrast */
+  background-image: repeating-linear-gradient(
+    45deg,
+    transparent,
+    transparent 20px,
+    rgba(0, 0, 0, 0.03) 20px,
+    rgba(0, 0, 0, 0.03) 40px
+  );
+  display: flex;
+  flex-direction: column;
+  align-items: center; /* Horizontal centering */
+  justify-content: center; /* Vertical centering */
+  text-align: center;
+  min-height: 500px;
+  border-right: 1px solid var(--border-color);
+  padding: var(--spacing-lg);
 }
 
-.course-description li {
+.placeholder-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.placeholder-icon {
+  font-size: 5rem; /* Increased from 3rem */
+  margin-bottom: var(--spacing-md);
+  filter: drop-shadow(
+    0 4px 6px rgba(0, 0, 0, 0.1)
+  ); /* Gives it a "pasted on" look */
+}
+
+.placeholder-content h4 {
+  color: var(--primary-color);
+  text-transform: uppercase;
+  letter-spacing: 2px;
   margin-bottom: var(--spacing-sm);
+  font-size: 1.4rem;
+}
+
+.placeholder-content p {
+  color: var(--text-light);
+  font-size: 1rem;
+  max-width: 320px;
+  margin: 0 auto;
+  line-height: 1.5;
+  font-style: italic; /* Adds a "field report" feel */
+}
+/* Responsive: Stack columns on smaller screens */
+@media (max-width: 992px) {
+  .course-card-premium {
+    flex-direction: column;
+  }
+  .course-map-side {
+    min-height: 400px;
+  }
 }
 
 /* ===== PAGE HEADER ===== */
