@@ -1,4 +1,38 @@
-/* ===== 01. REGISTRATION LAYOUT ===== */
+/* ===== 01. REGISTRATION STATUS BANNER ===== */
+.registration-status-container {
+  background: var(--bg-white);
+  padding: var(--spacing-xl);
+  border-radius: var(--border-radius);
+  box-shadow: var(--shadow-md);
+  margin-bottom: var(--spacing-xl);
+  border-left: 6px solid var(--accent-color);
+}
+
+.registration-status-container.pre-registration {
+  border-left-color: var(--warning-color);
+  background: linear-gradient(135deg, rgba(212, 165, 116, 0.05), rgba(212, 165, 116, 0.1));
+}
+
+.registration-status-container.closed {
+  border-left-color: var(--error-color);
+  background: linear-gradient(135deg, rgba(168, 93, 79, 0.05), rgba(168, 93, 79, 0.1));
+}
+
+.status-content {
+  text-align: center;
+}
+
+.status-content h3 {
+  margin-top: 0;
+  color: var(--text-dark);
+}
+
+.status-content p {
+  margin-bottom: 0;
+  color: var(--text-light);
+}
+
+/* ===== 02. REGISTRATION LAYOUT ===== */
 .registration-section {
   padding: var(--spacing-xxl) var(--spacing-md);
   background-color: var(--bg-light);
@@ -18,7 +52,7 @@
   box-shadow: var(--shadow-md);
 }
 
-/* ===== 02. FORM & INPUT LOGIC ===== */
+/* ===== 03. FORM & INPUT LOGIC ===== */
 .registration-form {
   display: flex;
   flex-direction: column;
@@ -79,7 +113,7 @@
   font-weight: 600;
 }
 
-/* ===== 03. SUBMIT BUTTON ===== */
+/* ===== 04. SUBMIT BUTTON ===== */
 .submit-button {
   background: linear-gradient(
     135deg,
@@ -104,7 +138,7 @@
   box-shadow: var(--shadow-lg);
 }
 
-/* ===== 04. STICKY SIDEBAR ===== */
+/* ===== 05. STICKY SIDEBAR ===== */
 .registration-sidebar {
   align-self: start;
   position: sticky;
@@ -160,7 +194,7 @@
   border-left: 4px solid var(--warning-color);
 }
 
-/* ===== 05. RESPONSIVE OVERRIDES ===== */
+/* ===== 06. RESPONSIVE OVERRIDES ===== */
 @media (max-width: 768px) {
   .form-row {
     grid-template-columns: 1fr;

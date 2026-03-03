@@ -17,46 +17,8 @@ function checkRegistrationStatus() {
 
 function updateRegistrationBanner() {
   const status = checkRegistrationStatus();
-  const bannerContainer = document.querySelector(".registration-banner");
 
-  if (!bannerContainer) {
-    // Create banner if it doesn't exist
-    const banner = document.createElement("div");
-    banner.className = "registration-banner";
-    banner.id = "registrationBanner";
-
-    const hero = document.querySelector(".hero");
-    if (hero && hero.parentNode) {
-      hero.parentNode.insertBefore(banner, hero.nextSibling);
-    }
-  }
-
-  const banner = document.getElementById("registrationBanner");
-
-  if (status === "pre-registration") {
-    banner.className = "registration-banner pre-registration";
-    banner.innerHTML = `
-      <div class="banner-content">
-        <h3>Registration Opens June 25, 2026</h3>
-        <p>Mark your calendar for early registration access to the Utah Mixed Epic</p>
-      </div>
-    `;
-    banner.style.display = "block";
-  } else if (status === "registration-open") {
-    banner.className = "registration-banner registration-open";
-    banner.innerHTML = `
-      <div class="banner-content">
-        <h3>Registration is Now Open!</h3>
-        <p>Secure your spot for the Utah Mixed Epic 2026</p>
-        <a href="registration.html" class="banner-cta">Register Now</a>
-      </div>
-    `;
-    banner.style.display = "block";
-  } else {
-    banner.style.display = "none";
-  }
-
-  // Update hero CTA button state
+  // Update hero CTA button state (home page only)
   const heroCTA = document.querySelector(".hero .cta-button");
   if (heroCTA) {
     if (status === "pre-registration") {
@@ -78,6 +40,61 @@ function updateRegistrationBanner() {
   }
 }
 
+function updateRegistrationPageStatus() {
+  const status = checkRegistrationStatus();
+  const registrationForm = document.getElementById("registrationForm");
+  const registrationWrapper = document.querySelector(".registration-wrapper");
+
+  if (!registrationWrapper) {
+    return; // Not on registration page
+  }
+
+  // Create status container if it doesn't exist
+  let statusContainer = document.querySelector(".registration-status-container");
+  if (!statusContainer) {
+    statusContainer = document.createElement("div");
+    statusContainer.className = "registration-status-container";
+    registrationWrapper.parentNode.insertBefore(statusContainer, registrationWrapper);
+  }
+
+  if (status === "pre-registration") {
+    statusContainer.className = "registration-status-container pre-registration";
+    statusContainer.innerHTML = `
+      <div class="status-content">
+        <h3>Registration Opens June 25, 2026</h3>
+        <p>Mark your calendar for early registration access to the Utah Mixed Epic</p>
+      </div>
+    `;
+    statusContainer.style.display = "block";
+
+    // Hide the form
+    if (registrationForm) {
+      registrationForm.parentNode.style.display = "none";
+    }
+  } else if (status === "registration-open") {
+    statusContainer.style.display = "none";
+
+    // Show the form
+    if (registrationForm) {
+      registrationForm.parentNode.style.display = "block";
+    }
+  } else if (status === "closed") {
+    statusContainer.className = "registration-status-container closed";
+    statusContainer.innerHTML = `
+      <div class="status-content">
+        <h3>Registration Closed</h3>
+        <p>Thank you for your interest in the Utah Mixed Epic. Registration for this event has ended.</p>
+      </div>
+    `;
+    statusContainer.style.display = "block";
+
+    // Hide the form
+    if (registrationForm) {
+      registrationForm.parentNode.style.display = "none";
+    }
+  }
+}
+
 // Registration Form - Category Selection
 // Photo gallery settings - Google Apps Script Proxy for Google Photos
 const PHOTO_GALLERY_ENDPOINT = "https://script.google.com/macros/s/AKfycbztMjSixByUSEWmK8emv4iOldbrdXQVc2NkIpXLuHqueSa2ubk8WnOofPv0lwtk_lyH/exec";
@@ -94,7 +111,6 @@ function loadPhotoGallery() {
 
   fetch(PHOTO_GALLERY_ENDPOINT, {
     method: "GET",
-    mode: "cors",
     cache: "no-cache"
   })
     .then((resp) => {
@@ -153,6 +169,7 @@ function loadPhotoGallery() {
 document.addEventListener("DOMContentLoaded", function () {
   loadPhotoGallery();
   updateRegistrationBanner();
+  updateRegistrationPageStatus();
   const registrationForm = document.getElementById("registrationForm");
 
   if (registrationForm) {
