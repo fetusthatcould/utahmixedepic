@@ -10,12 +10,23 @@
 
 .registration-status-container.pre-registration {
   border-left-color: var(--warning-color);
-  background: linear-gradient(135deg, rgba(212, 165, 116, 0.05), rgba(212, 165, 116, 0.1));
+  background: var(--bg-light)
+    linear-gradient(135deg, rgba(255, 243, 205, 0.05), rgba(255, 243, 205, 0.1));
+}
+.registration-status-container.pre-registration h3 {
+  color: var(--primary-color);
+  font-size: 1.75rem;
+  letter-spacing: 0.2em;
+  margin-bottom: var(--spacing-xs);
 }
 
 .registration-status-container.closed {
   border-left-color: var(--error-color);
-  background: linear-gradient(135deg, rgba(168, 93, 79, 0.05), rgba(168, 93, 79, 0.1));
+  background: linear-gradient(
+    135deg,
+    rgba(168, 93, 79, 0.05),
+    rgba(168, 93, 79, 0.1)
+  );
 }
 
 .status-content {
@@ -182,13 +193,13 @@
 }
 
 .registration-info {
-  background: var(--bg-light);
+  background: var(--bg-white);
   padding: var(--spacing-lg);
   border-radius: var(--border-radius);
 }
 
 .registration-note {
-  background: var(--bg-light);
+  background: var(--bg-white);
   padding: var(--spacing-lg);
   border-radius: var(--border-radius);
   border-left: 4px solid var(--warning-color);

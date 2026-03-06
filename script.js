@@ -1,7 +1,6 @@
 // Registration Timeline Management
 const REGISTRATION_OPEN_DATE = new Date("2026-06-25");
 const RACE_DATE = new Date("2026-09-25");
-
 function checkRegistrationStatus() {
   const today = new Date();
   today.setHours(0, 0, 0, 0);
@@ -50,20 +49,25 @@ function updateRegistrationPageStatus() {
   }
 
   // Create status container if it doesn't exist
-  let statusContainer = document.querySelector(".registration-status-container");
+  let statusContainer = document.querySelector(
+    ".registration-status-container",
+  );
   if (!statusContainer) {
     statusContainer = document.createElement("div");
     statusContainer.className = "registration-status-container";
-    registrationWrapper.parentNode.insertBefore(statusContainer, registrationWrapper);
+    registrationWrapper.parentNode.insertBefore(
+      statusContainer,
+      registrationWrapper,
+    );
   }
 
   if (status === "pre-registration") {
-    statusContainer.className = "registration-status-container pre-registration";
+    statusContainer.className =
+      "registration-status-container pre-registration";
     statusContainer.innerHTML = `
       <div class="status-content">
         <h3>Registration Opens June 25, 2026</h3>
-        <p>The Utah Mixed Epic has always taken inspiration from the unyielding topography and the community of high-performing stakeholders who rally around it. The scale of the event is a direct deliverable of that synergy. In 2025, we achieved significant market penetration, becoming the preeminent ultra-distance bikepacking event in the Intermountain West—a testament to our ability to scale with the growing demand for ultras. Under new management 2026, we are leveraging our core competencies to carry forward the depth, difficulty, and momentum shaped by the red rock and thin air. Join us for a mission-critical onboarding process. Leave the valley behind and begin engaging in the verticality of the Wasatch; the experience transcends the route file and the KPIs of a finish timestamp. Whether you are optimizing your output for the Jello Salad, navigating the high-stakes environments of the Fry Sauce, or committing to the full-sweep immersion of the Funeral Potatoes, the story unfolds—one remote, non-billable mile at a time.</p>
-      </div>
+        </div>
     `;
     statusContainer.style.display = "block";
 
@@ -97,7 +101,8 @@ function updateRegistrationPageStatus() {
 
 // Registration Form - Category Selection
 // Photo gallery settings - Google Apps Script Proxy for Google Photos
-const PHOTO_GALLERY_ENDPOINT = "https://script.google.com/macros/s/AKfycbztMjSixByUSEWmK8emv4iOldbrdXQVc2NkIpXLuHqueSa2ubk8WnOofPv0lwtk_lyH/exec";
+const PHOTO_GALLERY_ENDPOINT =
+  "https://script.google.com/macros/s/AKfycbztMjSixByUSEWmK8emv4iOldbrdXQVc2NkIpXLuHqueSa2ubk8WnOofPv0lwtk_lyH/exec";
 
 function loadPhotoGallery() {
   console.log("🖼️ Gallery loader starting...");
@@ -111,7 +116,7 @@ function loadPhotoGallery() {
 
   fetch(PHOTO_GALLERY_ENDPOINT, {
     method: "GET",
-    cache: "no-cache"
+    cache: "no-cache",
   })
     .then((resp) => {
       console.log("📨 Response status:", resp.status, resp.statusText);
@@ -133,8 +138,6 @@ function loadPhotoGallery() {
       console.log("✓ Photo URLs found:", photoUrls.length);
 
       if (photoUrls.length === 0) {
-  
-        
         return;
       }
 
@@ -144,7 +147,11 @@ function loadPhotoGallery() {
         return;
       }
 
-      console.log("🎨 Clearing gallery and adding", photoUrls.length, "photos...");
+      console.log(
+        "🎨 Clearing gallery and adding",
+        photoUrls.length,
+        "photos...",
+      );
       gallery.innerHTML = "";
       photoUrls.forEach((url, idx) => {
         const item = document.createElement("div");

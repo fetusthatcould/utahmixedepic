@@ -1,7 +1,7 @@
 /* ===== 01. PREMIUM COURSE CARDS (SPLIT-PANEL) ===== */
 .course-card-premium {
   display: flex;
-  background: var(--bg-white);
+  background: var(--bg-light);
   border-radius: var(--border-radius);
   overflow: hidden;
   margin-bottom: var(--spacing-xxl);
@@ -11,7 +11,7 @@
 
 .course-map-side {
   flex: 1.2; /* Map takes priority in the layout */
-  background: #eee;
+  background:var(--accent-color);
   min-height: 500px;
 }
 

@@ -6,9 +6,9 @@
   --accent-light: #d4956a;
   --text-dark: #3d3226;
   --text-light: #6b5b45;
-  --bg-light: #f4f1ed;
-  --bg-white: #ffffff;
-  --border-color: #e8e4df;
+  --bg-light: #f1ede8;
+  --bg-white: #f9f7f4;
+  --border-color: #e2ddd6;
   --success-color: #7b9e6e;
   --warning-color: #d4a574;
   --error-color: #a85d4f;
@@ -58,38 +58,47 @@ body {
 }
 
 /* ===== TYPOGRAPHY ===== */
+/* ===== TYPOGRAPHY REFINEMENTS ===== */
 h1,
 h2,
 h3,
 h4,
 h5,
 h6 {
-  font-weight: 700;
+  /* Matching your logo's weight and cinematic tracking */
+  font-weight: 300;
+  text-transform: uppercase;
+  letter-spacing: 0.25em;
   line-height: 1.2;
   margin-bottom: var(--spacing-md);
   color: var(--text-dark);
 }
 
 h1 {
-  font-size: 3.5rem;
-}
-h2 {
-  font-size: 2.5rem;
-  text-align: center;
-  margin-bottom: var(--spacing-xl);
-  font-weight: 800;
-  letter-spacing: -0.5px;
-}
-h3 {
-  font-size: 1.75rem;
-}
-h4 {
-  font-size: 1.25rem;
+  font-size: 3rem;
+  letter-spacing: 0.3em;
 }
 
+h2 {
+  font-size: 2.25rem;
+  text-align: center;
+  margin-bottom: var(--spacing-xl);
+  font-weight: 300;
+  letter-spacing: 0.2em;
+}
+
+h3 {
+  font-size: 1.5rem;
+  font-weight: 400;
+  letter-spacing: 0.15em;
+}
+
+/* Paragraphs remain legible but slightly more spaced to match the airy feel */
 p {
   margin-bottom: var(--spacing-md);
   color: var(--text-light);
+  letter-spacing: 0.02em;
+  justify-content: left;
 }
 
 a {
@@ -192,18 +201,20 @@ li {
     var(--secondary-color)
   );
   color: var(--bg-white);
-  padding: 4rem var(--spacing-md) 2rem;
+  padding: 6rem var(--spacing-md) 4rem; /* Added height for a more premium look */
   text-align: center;
 }
 
 .page-header h1 {
   color: var(--bg-white);
-  margin-bottom: var(--spacing-md);
+  margin-bottom: var(--spacing-sm);
 }
 
 .page-header p {
-  color: rgba(255, 255, 255, 0.9);
-  font-size: 1.3rem;
+  color: rgba(255, 255, 255, 0.8);
+  font-size: 1rem;
+  text-transform: uppercase;
+  letter-spacing: 0.2em; /* Matches the nav-link "refined" look */
 }
 
 /* ===== SHARED FOOTER ===== */
