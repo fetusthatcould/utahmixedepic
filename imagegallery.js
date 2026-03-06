@@ -63,9 +63,14 @@ document.addEventListener("DOMContentLoaded", () => {
 
     // Creating the internal HTML structure
     // Note: Ensure your extension (jpg vs JPG) matches your files exactly!
-    const ext = num <= 10 ? ".jpg" : ".JPG"; // simple hack for your set
+    const baseName = `Photo${num}`;
+    const jpg = `${baseDir}${baseName}.jpg`;
+    const JPG = `${baseDir}${baseName}.JPG`;
+    const imgSrc = (new Image().src = jpg); // or use fetch/async to check
+
+    // The HTML structure to match your CSS
     item.innerHTML = `
-      <img src="${baseDir}Photo${num}${ext}"
+      <img src="${imgSrc}"
          alt="…"
          loading="lazy" />
     <div class="item-overlay"></div>
