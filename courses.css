@@ -1,0 +1,153 @@
+/* ===== 01. PREMIUM COURSE CARDS (SPLIT-PANEL) ===== */
+.course-card-premium {
+  display: flex;
+  background: var(--bg-light);
+  border-radius: var(--border-radius);
+  overflow: hidden;
+  margin-bottom: var(--spacing-xxl);
+  box-shadow: var(--shadow-md);
+  border: 1px solid var(--border-color);
+}
+
+.course-map-side {
+  flex: 1.2; /* Map takes priority in the layout */
+  background:var(--accent-color);
+  min-height: 500px;
+}
+
+.course-info-side {
+  flex: 0.8;
+  padding: var(--spacing-xl);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.course-tag {
+  color: var(--accent-color);
+  text-transform: uppercase;
+  font-weight: 800;
+  font-size: 0.75rem;
+  letter-spacing: 1.5px;
+  margin-bottom: var(--spacing-xs);
+}
+
+.course-info-side h3 {
+  font-size: 2.2rem;
+  margin-bottom: var(--spacing-sm);
+  color: var(--text-dark);
+}
+
+/* ===== 02. STATS & DATA ROWS ===== */
+.course-stats-row {
+  display: flex;
+  gap: var(--spacing-md);
+  margin-bottom: var(--spacing-md);
+  padding-bottom: var(--spacing-md);
+  border-bottom: 1px solid var(--border-color);
+}
+
+.stat {
+  font-size: 0.9rem;
+  color: var(--text-light);
+}
+
+.stat strong {
+  display: block;
+  font-size: 1.2rem;
+  color: var(--primary-color);
+}
+
+/* ===== 03. UNDER DEVELOPMENT PLACEHOLDER ===== */
+.development-placeholder {
+  background-color: var(--bg-light);
+  background-image: repeating-linear-gradient(
+    45deg,
+    transparent,
+    transparent 20px,
+    rgba(0, 0, 0, 0.03) 20px,
+    rgba(0, 0, 0, 0.03) 40px
+  );
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  min-height: 500px;
+  border-right: 1px solid var(--border-color);
+  padding: var(--spacing-lg);
+}
+
+.placeholder-icon {
+  font-size: 5rem;
+  margin-bottom: var(--spacing-md);
+  filter: drop-shadow(0 4px 6px rgba(0, 0, 0, 0.1));
+}
+
+.placeholder-content h4 {
+  color: var(--primary-color);
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  margin-bottom: var(--spacing-sm);
+  font-size: 1.4rem;
+}
+
+/* ===== 04. COURSE INFORMATION (GRID AT BOTTOM) ===== */
+.course-details-section {
+  padding: var(--spacing-xxl) 0;
+  background-color: var(--bg-white);
+}
+
+.details-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: var(--spacing-xl);
+  margin-top: var(--spacing-xl);
+}
+
+.details-card {
+  background: var(--bg-light);
+  padding: var(--spacing-lg);
+  border-radius: var(--border-radius);
+  border: 1px solid var(--border-color);
+  transition: var(--transition);
+}
+
+.details-card:hover {
+  transform: translateY(-6px);
+  box-shadow: var(--shadow-lg);
+  border-color: var(--accent-color);
+}
+
+/* ===== 05. COURSE BUTTONS ===== */
+.cta-button-small {
+  display: inline-block;
+  margin-top: var(--spacing-md);
+  padding: 0.6rem 1.2rem;
+  background: var(--primary-color);
+  color: white;
+  text-decoration: none;
+  border-radius: 4px;
+  font-size: 0.8rem;
+  font-weight: 700;
+  text-align: center;
+  transition: var(--transition);
+}
+
+.cta-button-small:hover {
+  background: var(--accent-color);
+  transform: translateY(-2px);
+}
+
+/* ===== 06. COURSES RESPONSIVE ===== */
+@media (max-width: 992px) {
+  .course-card-premium {
+    flex-direction: column;
+  }
+  .course-map-side,
+  .development-placeholder {
+    min-height: 400px;
+    border-right: none;
+    border-bottom: 1px solid var(--border-color);
+  }
+}

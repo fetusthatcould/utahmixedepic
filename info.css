@@ -1,0 +1,171 @@
+/* ===== MORE-INFO: CENTERED BRIEFING MODULE ===== */
+
+.info-section {
+  padding: var(--spacing-xl) 0;
+
+  background-color: var(--bg-white);
+  display: flex;
+  flex-direction: column;
+  align-items: center; /* Ensures all blocks stay centered in the section */
+}
+
+/* 1. The Centered Container Block */
+.info-block {
+  display: grid;
+  margin-top: var(--spacing-xxl);
+  grid-template-columns: 280px 1fr; /* Defines the side-label width */
+  gap: var(--spacing-xl);
+  margin-bottom: var(--spacing-xxl);
+  align-items: start;
+
+  /* Centering & Tightness Logic */
+  width: 100%;
+  max-width: 1000px; /* This keeps the lines of text professional and tight */
+  margin-left: auto;
+  margin-right: auto;
+}
+
+/* 2. Side Header (Left Column) */
+.info-header-side {
+  text-align: right; /* Aligns the label/header toward the content for a tighter look */
+  padding-top: var(--spacing-sm);
+  position: sticky;
+  top: 120px;
+}
+
+.info-tag {
+  background: var(--text-dark); /* Dark background as requested */
+  color: var(--bg-white);
+  display: inline-block;
+  padding: 4px 12px;
+  font-family: monospace;
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  margin-bottom: var(--spacing-sm);
+}
+
+.info-header-side h2 {
+  font-size: 1.6rem;
+  line-height: 1.2;
+  color: var(--primary-color);
+  font-weight: 800;
+  text-align: right; /* Matches the side alignment */
+  border-right: 4px solid var(--accent-color); /* Side border instead of top for a 'tab' feel */
+  padding-right: var(--spacing-md);
+  margin-bottom: 0;
+}
+
+/* 3. Content Area (Right Column) */
+.info-content {
+  background: var(--bg-white);
+  padding: var(--spacing-lg);
+  border: 1px solid var(--border-color);
+  border-top: 4px solid var(--primary-color); /* Strong frame at the top */
+  border-radius: 4px;
+  box-shadow: var(--shadow-sm);
+}
+
+.info-content p {
+  font-size: 1rem;
+  color: var(--text-dark);
+}
+
+/* Memo Boxes (Internal callouts) */
+.memo-box {
+  background: #fffdf0;
+  border: 1px solid #fbc02d;
+  border-left: 5px solid #fbc02d;
+  padding: 1.25rem;
+  margin: var(--spacing-md) 0;
+  font-style: italic;
+  font-size: 0.95rem;
+  color: #5d4037;
+}
+
+/* Tighter Lists */
+.kit-list {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 15px;
+  list-style: none;
+  padding: 0;
+  margin-top: var(--spacing-md);
+}
+
+.kit-list li {
+  background: var(--bg-light);
+  padding: 10px;
+  border-left: 3px solid var(--accent-color);
+  font-size: 0.9rem;
+}
+
+/* To get the Contact Area to match the high-end "Dossier" look of the rest of the page, we need to treat the contact cards as premium "Strategic Assets."
+
+The issue usually lies in the cards being too narrow or the text not being perfectly aligned within the grid. We’ll refine the contact-grid to ensure it fills the right-hand column with balanced, clickable "Command Tiles."
+
+1. Updated more-info.css (Contact Section Focus)
+Replace your contact-related CSS with this. It uses a 3-column tile layout that aligns perfectly with the centered dossier style.
+
+CSS */
+/* ===== CONTACT SECTION POLISH ===== */
+
+/* Ensure the contact grid takes up the full width of the content column */
+.contact-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr); /* Clean 3-column grid */
+  gap: var(--spacing-md);
+  width: 100%;
+}
+
+.contact-item-card {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background: var(--bg-white);
+  padding: var(--spacing-lg);
+  border: 1px solid var(--border-color);
+  border-top: 5px solid var(--accent-color); /* Matches the side-header accent */
+  border-radius: 4px;
+  text-decoration: none; /* Removes link underline from card */
+  transition: var(--transition);
+  min-height: 140px; /* Ensures uniformity */
+  text-align: center;
+}
+
+/* Hover state: Lift and emphasize */
+.contact-item-card:hover {
+  transform: translateY(-5px);
+  box-shadow: var(--shadow-md);
+  border-color: var(--accent-color);
+  background-color: var(--bg-light); /* Subtle shift on hover */
+}
+
+.contact-item-card h4 {
+  font-size: 0.9rem;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  color: var(--primary-color);
+  margin-bottom: 0.5rem;
+  font-weight: 800;
+}
+
+.contact-item-card p {
+  font-size: 0.95rem;
+  color: var(--text-light);
+  margin-bottom: 0;
+  font-family: monospace; /* Gives it a "technical coordinate" feel */
+}
+
+/* Responsive: Switch to 1 column on mobile */
+@media (max-width: 768px) {
+  .contact-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .contact-item-card {
+    min-height: auto;
+    padding: var(--spacing-md);
+  }
+}

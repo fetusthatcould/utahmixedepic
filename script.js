@@ -1,8 +1,182 @@
+// Registration Timeline Management
+const REGISTRATION_OPEN_DATE = new Date("2026-06-25");
+const RACE_DATE = new Date("2026-09-25");
+function checkRegistrationStatus() {
+  const today = new Date();
+  today.setHours(0, 0, 0, 0);
+
+  if (today < REGISTRATION_OPEN_DATE) {
+    return "pre-registration";
+  } else if (today < RACE_DATE) {
+    return "registration-open";
+  } else {
+    return "closed";
+  }
+}
+
+function updateRegistrationBanner() {
+  const status = checkRegistrationStatus();
+
+  // Update hero CTA button state (home page only)
+  const heroCTA = document.querySelector(".hero .cta-button");
+  if (heroCTA) {
+    if (status === "pre-registration") {
+      heroCTA.disabled = true;
+      heroCTA.style.opacity = "0.6";
+      heroCTA.style.cursor = "not-allowed";
+      heroCTA.title = "Registration opens June 25, 2026";
+    } else if (status === "registration-open") {
+      heroCTA.disabled = false;
+      heroCTA.style.opacity = "1";
+      heroCTA.style.cursor = "pointer";
+      heroCTA.title = "";
+    } else {
+      heroCTA.disabled = true;
+      heroCTA.style.opacity = "0.6";
+      heroCTA.style.cursor = "not-allowed";
+      heroCTA.title = "Registration has closed";
+    }
+  }
+}
+
+function updateRegistrationPageStatus() {
+  const status = checkRegistrationStatus();
+  const registrationForm = document.getElementById("registrationForm");
+  const registrationWrapper = document.querySelector(".registration-wrapper");
+
+  if (!registrationWrapper) {
+    return; // Not on registration page
+  }
+
+  // Create status container if it doesn't exist
+  let statusContainer = document.querySelector(
+    ".registration-status-container",
+  );
+  if (!statusContainer) {
+    statusContainer = document.createElement("div");
+    statusContainer.className = "registration-status-container";
+    registrationWrapper.parentNode.insertBefore(
+      statusContainer,
+      registrationWrapper,
+    );
+  }
+
+  if (status === "pre-registration") {
+    statusContainer.className =
+      "registration-status-container pre-registration";
+    statusContainer.innerHTML = `
+      <div class="status-content">
+        <h3>Registration Opens June 25, 2026</h3>
+        </div>
+    `;
+    statusContainer.style.display = "block";
+
+    // Hide the form
+    if (registrationForm) {
+      registrationForm.parentNode.style.display = "none";
+    }
+  } else if (status === "registration-open") {
+    statusContainer.style.display = "none";
+
+    // Show the form
+    if (registrationForm) {
+      registrationForm.parentNode.style.display = "block";
+    }
+  } else if (status === "closed") {
+    statusContainer.className = "registration-status-container closed";
+    statusContainer.innerHTML = `
+      <div class="status-content">
+        <h3>Registration Closed</h3>
+        <p>Thank you for your interest in the Utah Mixed Epic. Registration for this event has ended.</p>
+      </div>
+    `;
+    statusContainer.style.display = "block";
+
+    // Hide the form
+    if (registrationForm) {
+      registrationForm.parentNode.style.display = "none";
+    }
+  }
+}
+
 // Registration Form - Category Selection
+// Photo gallery settings - Google Apps Script Proxy for Google Photos
+const PHOTO_GALLERY_ENDPOINT =
+  "https://script.google.com/macros/s/AKfycbztMjSixByUSEWmK8emv4iOldbrdXQVc2NkIpXLuHqueSa2ubk8WnOofPv0lwtk_lyH/exec";
+
+function loadPhotoGallery() {
+  console.log("🖼️ Gallery loader starting...");
+
+  if (!PHOTO_GALLERY_ENDPOINT) {
+    console.warn("⚠️ Photo gallery endpoint not configured");
+    return;
+  }
+
+  console.log("📡 Fetching from:", PHOTO_GALLERY_ENDPOINT);
+
+  fetch(PHOTO_GALLERY_ENDPOINT, {
+    method: "GET",
+    cache: "no-cache",
+  })
+    .then((resp) => {
+      console.log("📨 Response status:", resp.status, resp.statusText);
+      if (!resp.ok) {
+        throw new Error(`HTTP ${resp.status}: ${resp.statusText}`);
+      }
+      return resp.json();
+    })
+    .then((data) => {
+      console.log("📦 Raw response data:", data);
+
+      // Handle error response from Apps Script
+      if (data.error) {
+        console.error("❌ Gallery error from script:", data.error);
+        return;
+      }
+
+      const photoUrls = Array.isArray(data) ? data : [];
+      console.log("✓ Photo URLs found:", photoUrls.length);
+
+      if (photoUrls.length === 0) {
+        return;
+      }
+
+      const gallery = document.querySelector(".masonry-gallery");
+      if (!gallery) {
+        console.error("❌ Gallery element not found in DOM");
+        return;
+      }
+
+      console.log(
+        "🎨 Clearing gallery and adding",
+        photoUrls.length,
+        "photos...",
+      );
+      gallery.innerHTML = "";
+      photoUrls.forEach((url, idx) => {
+        const item = document.createElement("div");
+        item.className = "masonry-item" + (idx % 5 === 0 ? " tall" : "");
+        const img = document.createElement("img");
+        img.src = url;
+        img.alt = "Gallery image";
+        img.loading = "lazy";
+        item.appendChild(img);
+        gallery.appendChild(item);
+      });
+      console.log("✅ Gallery loaded successfully!");
+    })
+    .catch((err) => {
+      console.error("❌ Gallery load error:", err.message, err);
+    });
+}
+
 // (No pricing calculations needed - event is free)
 
 // Form Submission
 document.addEventListener("DOMContentLoaded", function () {
+  loadPhotoGallery();
+  updateRegistrationBanner();
+  updateRegistrationPageStatus();
   const registrationForm = document.getElementById("registrationForm");
 
   if (registrationForm) {
@@ -23,10 +197,11 @@ document.addEventListener("DOMContentLoaded", function () {
         lastName: document.getElementById("lastName").value,
         email: document.getElementById("email").value,
         phone: document.getElementById("phone").value,
-        age: document.getElementById("age").value,
         course: document.getElementById("course").value,
         emergencyContact: document.getElementById("emergencyContact").value,
         emergencyPhone: document.getElementById("emergencyPhone").value,
+        waiver: document.getElementById("waiver").checked,
+        newsletter: document.getElementById("newsletter").checked,
       };
 
       // Validate form
@@ -67,12 +242,6 @@ function validateForm(data) {
   const phoneRegex = /^[0-9\-\+\(\)\s]{10,}$/;
   if (!phoneRegex.test(data.phone)) {
     alert("Please enter a valid phone number.");
-    return false;
-  }
-
-  // Age validation
-  if (parseInt(data.age) < 16) {
-    alert("You must be at least 16 years old to participate.");
     return false;
   }
 
@@ -259,7 +428,6 @@ Thank you for registering, ${data.firstName}!<br><br>
 - Email: ${data.email}<br>
 - Phone: ${data.phone}<br>
 - Route: ${selectedCourse}<br>
-- Age: ${data.age}<br>
 - Emergency Contact: ${data.emergencyContact}<br><br>
 A confirmation email will be sent to ${data.email} shortly.<br>
 Check your email for race day details, route maps, and further instructions.<br><br>

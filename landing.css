@@ -1,0 +1,114 @@
+/* Ensure the body takes up the full screen */
+body, html {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  font-family: 'Helvetica Neue', Arial, sans-serif;
+}
+
+/* Background image setup */
+.hero-section {
+  position: relative;
+  height: 100vh;
+  width: 100%;
+  background-image: url('UME\ Skyline\ Drive.JPG'); /* Remember to update your path */
+  background-size: cover;
+  background-position: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
+}
+
+/* Dark overlay for text readability */
+.hero-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.3);
+  z-index: 1;
+}
+
+/* 1. The initial load animation (fade and slide up)
+*/
+@keyframes fadeAndSlideUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* 2. The continuous rolling wave for the border */
+@keyframes rollingWave {
+  0%   { border-radius: 43% 57% 41% 59% / 53% 45% 58% 42%; }
+  25%  { border-radius: 57% 43% 59% 41% / 45% 53% 42% 58%; }
+  50%  { border-radius: 43% 57% 41% 59% / 58% 42% 53% 45%; }
+  75%  { border-radius: 59% 41% 57% 43% / 42% 58% 45% 53%; }
+  100% { border-radius: 43% 57% 41% 59% / 53% 45% 58% 42%; }
+}
+
+/* The main container styling */
+.logo-container {
+  position: relative;
+  z-index: 2;
+  display: inline-block;
+  text-decoration: none;
+  padding: 3.5rem 5.5rem; /* Spacious padding to let the wave move */
+  text-align: center;
+  
+  opacity: 0; 
+  animation: fadeAndSlideUp 1.5s ease-out 0.5s forwards;
+}
+
+/* The rippling wave border */
+.logo-container::before {
+  content: "";
+  position: absolute;
+  top: 0; 
+  left: 0; 
+  right: 0; 
+  bottom: 0;
+  border: 3px solid #ffffff;
+  z-index: -1; /* Puts the border behind the text */
+  
+  /* Applies the wave animation */
+  animation: rollingWave 6s linear infinite;
+  transition: background-color 0.3s ease;
+}
+
+/* Hover effect fills the wave slightly */
+.logo-container:hover::before {
+  background-color: rgba(255, 255, 255, 0.15);
+  cursor: pointer;
+}
+
+
+.logo-text {
+  color: #ffffff;
+  font-size: 2rem;
+  font-weight: 300;
+  text-transform: uppercase;
+  letter-spacing: 0.8em;
+  margin: 0;
+  margin-right: -0.8em; 
+}
+
+/* Responsive adjustments for mobile */
+@media (max-width: 768px) {
+  .logo-container {
+    padding: 2rem 2.5rem;
+    border-width: 2px;
+  }
+  
+  .logo-text {
+    font-size: 1.2rem;
+    letter-spacing: 0.5em;
+    margin-right: -0.5em;
+  }
+}

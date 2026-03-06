@@ -1,0 +1,222 @@
+/* ===== 01. REGISTRATION STATUS BANNER ===== */
+.registration-status-container {
+  background: var(--bg-white);
+  padding: var(--spacing-xl);
+  border-radius: var(--border-radius);
+  box-shadow: var(--shadow-md);
+  margin-bottom: var(--spacing-xl);
+  border-left: 6px solid var(--accent-color);
+}
+
+.registration-status-container.pre-registration {
+  border-left-color: var(--warning-color);
+  background: var(--bg-light)
+    linear-gradient(135deg, rgba(255, 243, 205, 0.05), rgba(255, 243, 205, 0.1));
+}
+.registration-status-container.pre-registration h3 {
+  color: var(--primary-color);
+  font-size: 1.75rem;
+  letter-spacing: 0.2em;
+  margin-bottom: var(--spacing-xs);
+}
+
+.registration-status-container.closed {
+  border-left-color: var(--error-color);
+  background: linear-gradient(
+    135deg,
+    rgba(168, 93, 79, 0.05),
+    rgba(168, 93, 79, 0.1)
+  );
+}
+
+.status-content {
+  text-align: center;
+}
+
+.status-content h3 {
+  margin-top: 0;
+  color: var(--text-dark);
+}
+
+.status-content p {
+  margin-bottom: 0;
+  color: var(--text-light);
+}
+
+/* ===== 02. REGISTRATION LAYOUT ===== */
+.registration-section {
+  padding: var(--spacing-xxl) var(--spacing-md);
+  background-color: var(--bg-light);
+}
+
+.registration-wrapper {
+  display: grid;
+  grid-template-columns: 2fr 1fr;
+  gap: var(--spacing-xl);
+  margin-top: var(--spacing-xl);
+}
+
+.registration-form-wrapper {
+  background: var(--bg-white);
+  padding: var(--spacing-xl);
+  border-radius: var(--border-radius);
+  box-shadow: var(--shadow-md);
+}
+
+/* ===== 03. FORM & INPUT LOGIC ===== */
+.registration-form {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-md);
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+}
+
+.form-group label {
+  font-weight: 700;
+  margin-bottom: var(--spacing-xs);
+  color: var(--text-dark);
+}
+
+.form-group input,
+.form-group select,
+.form-group textarea {
+  padding: var(--spacing-md);
+  border: 2px solid var(--border-color);
+  border-radius: var(--border-radius);
+  font-family: var(--font-primary);
+  font-size: 1rem;
+  transition: var(--transition);
+}
+
+.form-group input:focus,
+.form-group select:focus,
+.form-group textarea:focus {
+  outline: none;
+  border-color: var(--primary-color);
+  box-shadow: 0 0 0 3px rgba(30, 60, 114, 0.1);
+}
+
+.form-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--spacing-md);
+}
+
+.form-group.checkbox {
+  flex-direction: row;
+  align-items: flex-start;
+  gap: var(--spacing-sm);
+}
+
+.form-group.checkbox input {
+  width: 20px;
+  height: 20px;
+  margin-top: 3px;
+  cursor: pointer;
+}
+
+.form-group.checkbox label {
+  margin-bottom: 0;
+  font-weight: 600;
+}
+
+/* ===== 04. SUBMIT BUTTON ===== */
+.submit-button {
+  background: linear-gradient(
+    135deg,
+    var(--secondary-color),
+    var(--primary-color)
+  );
+  color: var(--bg-white);
+  width: 100%;
+  padding: 1.5rem 2rem;
+  border: none;
+  border-radius: var(--border-radius);
+  font-size: 1.1rem;
+  font-weight: 700;
+  cursor: pointer;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  transition: var(--transition);
+}
+
+.submit-button:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-lg);
+}
+
+/* ===== 05. STICKY SIDEBAR ===== */
+.registration-sidebar {
+  align-self: start;
+  position: sticky;
+  top: calc(var(--spacing-xl) + 2rem);
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-lg);
+}
+
+.pricing-summary {
+  background: var(--bg-light);
+  padding: var(--spacing-lg);
+  border-radius: var(--border-radius);
+  border-left: 4px solid var(--accent-color);
+}
+
+.pricing-summary h3 {
+  margin-top: 0;
+  color: var(--primary-color);
+}
+
+.summary-item {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: var(--spacing-md);
+  color: var(--text-dark);
+}
+
+.divider {
+  height: 1px;
+  background: var(--border-color);
+  margin: var(--spacing-md) 0;
+}
+
+.summary-total {
+  display: flex;
+  justify-content: space-between;
+  font-size: 1.25rem;
+  font-weight: 800;
+  color: var(--accent-color);
+}
+
+.registration-info {
+  background: var(--bg-white);
+  padding: var(--spacing-lg);
+  border-radius: var(--border-radius);
+}
+
+.registration-note {
+  background: var(--bg-white);
+  padding: var(--spacing-lg);
+  border-radius: var(--border-radius);
+  border-left: 4px solid var(--warning-color);
+}
+
+/* ===== 06. RESPONSIVE OVERRIDES ===== */
+@media (max-width: 768px) {
+  .form-row {
+    grid-template-columns: 1fr;
+  }
+
+  .registration-wrapper {
+    grid-template-columns: 1fr; /* Stack sidebar on mobile */
+  }
+
+  .registration-sidebar {
+    position: static;
+    top: auto;
+  }
+}
