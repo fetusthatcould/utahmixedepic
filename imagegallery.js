@@ -62,16 +62,15 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
     // Creating the internal HTML structure
-    // Note: Ensure your extension (jpg vs JPG) matches your files exactly!
-    const baseName = `Photo${num}`;
-    const jpg = `${baseDir}${baseName}.jpg`;
-    const JPG = `${baseDir}${baseName}.JPG`;
-    const imgSrc = (new Image().src = jpg); // or use fetch/async to check
+    // All photo files on the live host use uppercase .JPG. Windows ignores case,
+    // so you wouldn’t notice locally, but the server is case‑sensitive.
+    const ext = ".JPG";                          // hard‑code correct suffix
+    const imgSrc = `${baseDir}Photo${num}${ext}`;
 
     // The HTML structure to match your CSS
     item.innerHTML = `
       <img src="${imgSrc}"
-         alt="…"
+         alt="Utah Mixed Epic Gallery"
          loading="lazy" />
     <div class="item-overlay"></div>
   `;
