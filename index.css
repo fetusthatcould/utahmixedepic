@@ -115,7 +115,7 @@
 }
 
 .hero h2 {
-  font-size: 4.5rem;
+  font-size: 2.5rem;
   margin-bottom: var(--spacing-md);
   color: var(--bg-white);
   font-weight: 900;
@@ -173,7 +173,7 @@
 }
 
 .narrative-text {
-  font-size: 1.1rem;
+  font-size: .5 rem;
   line-height: 1.8;
   margin-bottom: var(--spacing-lg);
   color: var(--text-light);

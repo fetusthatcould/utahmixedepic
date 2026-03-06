@@ -62,7 +62,7 @@ function updateRegistrationPageStatus() {
     statusContainer.innerHTML = `
       <div class="status-content">
         <h3>Registration Opens June 25, 2026</h3>
-        <p>Mark your calendar for early registration access to the Utah Mixed Epic</p>
+        <p>The Utah Mixed Epic has always taken inspiration from the unyielding topography and the community of high-performing stakeholders who rally around it. The scale of the event is a direct deliverable of that synergy. In 2025, we achieved significant market penetration, becoming the preeminent ultra-distance bikepacking event in the Intermountain West—a testament to our ability to scale with the growing demand for ultras. Under new management 2026, we are leveraging our core competencies to carry forward the depth, difficulty, and momentum shaped by the red rock and thin air. Join us for a mission-critical onboarding process. Leave the valley behind and begin engaging in the verticality of the Wasatch; the experience transcends the route file and the KPIs of a finish timestamp. Whether you are optimizing your output for the Jello Salad, navigating the high-stakes environments of the Fry Sauce, or committing to the full-sweep immersion of the Funeral Potatoes, the story unfolds—one remote, non-billable mile at a time.</p>
       </div>
     `;
     statusContainer.style.display = "block";
