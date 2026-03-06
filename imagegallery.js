@@ -39,7 +39,7 @@ document.addEventListener("DOMContentLoaded", () => {
   if (!galleryContainer) return;
 
   const baseDir = "Photos UME Website-3-001/Photos UME Website/";
-  const totalAvailable = 19;          // as before
+  const totalAvailable = 19; // as before
   const imagesToDisplay = 9;
   const selectedNumbers = [];
 
@@ -63,7 +63,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
     // Creating the internal HTML structure
     // Note: Ensure your extension (jpg vs JPG) matches your files exactly!
-    const ext = num <= 9 ? ".jpg" : ".JPG";     // simple hack for your set
+    const ext = num <= 10 ? ".jpg" : ".JPG"; // simple hack for your set
     item.innerHTML = `
       <img src="${baseDir}Photo${num}${ext}"
          alt="…"
