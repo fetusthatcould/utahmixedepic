@@ -262,6 +262,23 @@ li {
   color: rgba(255, 255, 255, 0.6);
 }
 
+/* ===== HAMBURGER MENU ===== */
+.hamburger {
+  display: none;
+  cursor: pointer;
+  flex-direction: column;
+  gap: 6px;
+  z-index: 1001; /* Keeps it above the menu */
+}
+
+.hamburger .bar {
+  display: block;
+  width: 25px;
+  height: 2px;
+  background-color: var(--text-dark);
+  transition: var(--transition);
+}
+
 /* ===== GLOBAL RESPONSIVE DESIGN ===== */
 @media (max-width: 768px) {
   .container {
@@ -274,14 +291,42 @@ li {
     font-size: 1.75rem;
   }
 
+  /* Keep logo and hamburger inline */
   .navbar .container {
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  /* Show the hamburger menu on mobile */
+  .hamburger {
+    display: flex;
+  }
+
+  /* Hide nav links by default, stack them, and prepare for toggle */
+  .nav-links {
+    display: none;
     flex-direction: column;
+    width: 100%;
+    text-align: center;
+    padding: var(--spacing-md) 0;
     gap: var(--spacing-md);
   }
 
-  .nav-links {
-    gap: var(--spacing-md);
-    flex-wrap: wrap;
-    justify-content: center;
+  /* Class toggled by JavaScript to show the menu */
+  .nav-links.active {
+    display: flex;
+  }
+
+  /* Optional: Animate hamburger into an "X" when open */
+  .hamburger.active .bar:nth-child(1) {
+    transform: translateY(8px) rotate(45deg);
+  }
+  .hamburger.active .bar:nth-child(2) {
+    opacity: 0;
+  }
+  .hamburger.active .bar:nth-child(3) {
+    transform: translateY(-8px) rotate(-45deg);
   }
 }

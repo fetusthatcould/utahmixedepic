@@ -100,81 +100,11 @@ function updateRegistrationPageStatus() {
 }
 
 // Registration Form - Category Selection
-// Photo gallery settings - Google Apps Script Proxy for Google Photos
-const PHOTO_GALLERY_ENDPOINT =
-  "https://script.google.com/macros/s/AKfycbztMjSixByUSEWmK8emv4iOldbrdXQVc2NkIpXLuHqueSa2ubk8WnOofPv0lwtk_lyH/exec";
-
-function loadPhotoGallery() {
-  console.log("🖼️ Gallery loader starting...");
-
-  if (!PHOTO_GALLERY_ENDPOINT) {
-    console.warn("⚠️ Photo gallery endpoint not configured");
-    return;
-  }
-
-  console.log("📡 Fetching from:", PHOTO_GALLERY_ENDPOINT);
-
-  fetch(PHOTO_GALLERY_ENDPOINT, {
-    method: "GET",
-    cache: "no-cache",
-  })
-    .then((resp) => {
-      console.log("📨 Response status:", resp.status, resp.statusText);
-      if (!resp.ok) {
-        throw new Error(`HTTP ${resp.status}: ${resp.statusText}`);
-      }
-      return resp.json();
-    })
-    .then((data) => {
-      console.log("📦 Raw response data:", data);
-
-      // Handle error response from Apps Script
-      if (data.error) {
-        console.error("❌ Gallery error from script:", data.error);
-        return;
-      }
-
-      const photoUrls = Array.isArray(data) ? data : [];
-      console.log("✓ Photo URLs found:", photoUrls.length);
-
-      if (photoUrls.length === 0) {
-        return;
-      }
-
-      const gallery = document.querySelector(".masonry-gallery");
-      if (!gallery) {
-        console.error("❌ Gallery element not found in DOM");
-        return;
-      }
-
-      console.log(
-        "🎨 Clearing gallery and adding",
-        photoUrls.length,
-        "photos...",
-      );
-      gallery.innerHTML = "";
-      photoUrls.forEach((url, idx) => {
-        const item = document.createElement("div");
-        item.className = "masonry-item" + (idx % 5 === 0 ? " tall" : "");
-        const img = document.createElement("img");
-        img.src = url;
-        img.alt = "Gallery image";
-        img.loading = "lazy";
-        item.appendChild(img);
-        gallery.appendChild(item);
-      });
-      console.log("✅ Gallery loaded successfully!");
-    })
-    .catch((err) => {
-      console.error("❌ Gallery load error:", err.message, err);
-    });
-}
 
 // (No pricing calculations needed - event is free)
 
 // Form Submission
 document.addEventListener("DOMContentLoaded", function () {
-  loadPhotoGallery();
   updateRegistrationBanner();
   updateRegistrationPageStatus();
   const registrationForm = document.getElementById("registrationForm");
@@ -450,16 +380,36 @@ document.querySelectorAll('a[href^="#"]').forEach((anchor) => {
   });
 });
 
-// Mobile menu functionality (if needed)
+// Mobile menu functionality
 function initializeMobileMenu() {
-  const navbar = document.querySelector(".navbar");
+  const hamburger = document.getElementById("hamburger");
   const navLinks = document.querySelector(".nav-links");
 
-  // This can be extended for mobile hamburger menu functionality
-  if (window.innerWidth <= 768) {
-    // Mobile-specific functionality can be added here
+  if (hamburger && navLinks) {
+    // Clone and replace to prevent duplicate event listeners if initialized multiple times
+    const newHamburger = hamburger.cloneNode(true);
+    hamburger.parentNode.replaceChild(newHamburger, hamburger);
+
+    newHamburger.addEventListener("click", function () {
+      newHamburger.classList.toggle("active");
+      navLinks.classList.toggle("active");
+    });
+
+    // Close menu when a link is clicked
+    const links = navLinks.querySelectorAll("a");
+    links.forEach((link) => {
+      link.addEventListener("click", () => {
+        newHamburger.classList.remove("active");
+        navLinks.classList.remove("active");
+      });
+    });
   }
 }
+
+// Initialize on page load
+window.addEventListener("DOMContentLoaded", function () {
+  initializeMobileMenu();
+});
 
 // Initialize on page load
 window.addEventListener("load", function () {
