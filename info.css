@@ -1,45 +1,38 @@
-/* ===== MORE-INFO: CENTERED BRIEFING MODULE ===== */
+/* ===== MORE-INFO: STACKED BRIEFING MODULE ===== */
 
 .info-section {
-  padding: var(--spacing-xl) 0;
-
+  /* Added safe side-padding so nothing ever touches the screen edge */
+  padding: var(--spacing-xl) var(--spacing-md); 
   background-color: var(--bg-white);
-  display: flex;
-  flex-direction: column;
-  align-items: center; /* Ensures all blocks stay centered in the section */
 }
 
-/* 1. The Centered Container Block */
+/* 1. The Stacked Container */
 .info-block {
-  display: grid;
-  margin-top: var(--spacing-xxl);
-  grid-template-columns: 280px 1fr; /* Defines the side-label width */
-  gap: var(--spacing-xl);
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-sm);
   margin-bottom: var(--spacing-xxl);
-  align-items: start;
-
-  /* Centering & Tightness Logic */
+  
+  /* Center the block and constrain width for perfect readability */
   width: 100%;
-  max-width: 1000px; /* This keeps the lines of text professional and tight */
+  max-width: 800px; 
   margin-left: auto;
   margin-right: auto;
 }
 
-/* 2. Side Header (Left Column) */
+/* 2. Header Section (Now on Top) */
 .info-header-side {
-  text-align: right; /* Aligns the label/header toward the content for a tighter look */
-  padding-top: var(--spacing-sm);
-  position: sticky;
-  top: 120px;
+  text-align: left;
+  margin-bottom: var(--spacing-xs);
 }
 
 .info-tag {
-  background: var(--text-dark); /* Dark background as requested */
+  background: var(--text-dark);
   color: var(--bg-white);
   display: inline-block;
   padding: 4px 12px;
   font-family: monospace;
-  font-size: 0.75rem;
+  font-size: 0.8rem;
   text-transform: uppercase;
   letter-spacing: 2px;
   margin-bottom: var(--spacing-sm);
@@ -50,28 +43,34 @@
   line-height: 1.2;
   color: var(--primary-color);
   font-weight: 800;
-  text-align: right; /* Matches the side alignment */
-  border-right: 4px solid var(--accent-color); /* Side border instead of top for a 'tab' feel */
-  padding-right: var(--spacing-md);
+  text-align: left;
+  /* Shifted the border to the left for the stacked design */
+  border-left: 4px solid var(--accent-color);
+  padding-left: var(--spacing-md);
   margin-bottom: 0;
 }
 
-/* 3. Content Area (Right Column) */
+/* 3. Content Area (Now Underneath) */
 .info-content {
   background: var(--bg-white);
   padding: var(--spacing-lg);
   border: 1px solid var(--border-color);
-  border-top: 4px solid var(--primary-color); /* Strong frame at the top */
+  border-top: 4px solid var(--primary-color);
   border-radius: 4px;
   box-shadow: var(--shadow-sm);
+  
+  /* Bulletproof sizing guarantees it won't blow out the screen */
+  width: 100%;
+  box-sizing: border-box; 
 }
 
 .info-content p {
   font-size: 1rem;
   color: var(--text-dark);
+  margin-top: 0;
 }
 
-/* Memo Boxes (Internal callouts) */
+/* Internal Modules */
 .memo-box {
   background: #fffdf0;
   border: 1px solid #fbc02d;
@@ -83,10 +82,23 @@
   color: #5d4037;
 }
 
-/* Tighter Lists */
+.rules-grid {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-md);
+}
+
+.rule-card h4, .rule-row h4 {
+  color: var(--primary-color);
+  margin-bottom: var(--spacing-xs);
+  margin-top: 0;
+  font-size: 1.1rem;
+}
+
+/* Lists */
 .kit-list {
   display: grid;
-  grid-template-columns: 1fr 1fr;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
   gap: 15px;
   list-style: none;
   padding: 0;
@@ -95,25 +107,15 @@
 
 .kit-list li {
   background: var(--bg-light);
-  padding: 10px;
+  padding: 12px;
   border-left: 3px solid var(--accent-color);
   font-size: 0.9rem;
 }
 
-/* To get the Contact Area to match the high-end "Dossier" look of the rest of the page, we need to treat the contact cards as premium "Strategic Assets."
-
-The issue usually lies in the cards being too narrow or the text not being perfectly aligned within the grid. We’ll refine the contact-grid to ensure it fills the right-hand column with balanced, clickable "Command Tiles."
-
-1. Updated more-info.css (Contact Section Focus)
-Replace your contact-related CSS with this. It uses a 3-column tile layout that aligns perfectly with the centered dossier style.
-
-CSS */
 /* ===== CONTACT SECTION POLISH ===== */
-
-/* Ensure the contact grid takes up the full width of the content column */
 .contact-grid {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr); /* Clean 3-column grid */
+  display: flex;
+  flex-wrap: wrap;
   gap: var(--spacing-md);
   width: 100%;
 }
@@ -126,20 +128,18 @@ CSS */
   background: var(--bg-white);
   padding: var(--spacing-lg);
   border: 1px solid var(--border-color);
-  border-top: 5px solid var(--accent-color); /* Matches the side-header accent */
+  border-top: 5px solid var(--accent-color);
   border-radius: 4px;
-  text-decoration: none; /* Removes link underline from card */
+  text-decoration: none;
   transition: var(--transition);
-  min-height: 140px; /* Ensures uniformity */
   text-align: center;
 }
 
-/* Hover state: Lift and emphasize */
 .contact-item-card:hover {
   transform: translateY(-5px);
   box-shadow: var(--shadow-md);
   border-color: var(--accent-color);
-  background-color: var(--bg-light); /* Subtle shift on hover */
+  background-color: var(--bg-light);
 }
 
 .contact-item-card h4 {
@@ -155,17 +155,20 @@ CSS */
   font-size: 0.95rem;
   color: var(--text-light);
   margin-bottom: 0;
-  font-family: monospace; /* Gives it a "technical coordinate" feel */
+  font-family: monospace;
 }
 
-/* Responsive: Switch to 1 column on mobile */
-@media (max-width: 768px) {
-  .contact-grid {
-    grid-template-columns: 1fr;
+/* ===== MOBILE RESPONSIVE ===== */
+@media screen and (max-width: 768px) {
+  .info-section {
+    padding: var(--spacing-lg) var(--spacing-sm);
   }
 
-  .contact-item-card {
-    min-height: auto;
+  .info-content {
     padding: var(--spacing-md);
+  }
+  
+  .info-header-side h2 {
+    font-size: 1.3rem;
   }
 }

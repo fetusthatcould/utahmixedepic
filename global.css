@@ -277,11 +277,13 @@ li {
   .navbar .container {
     flex-direction: column;
     gap: var(--spacing-md);
+    align-items: stretch; /* allow children to fill the full width */
   }
 
   .nav-links {
     gap: var(--spacing-md);
     flex-wrap: wrap;
     justify-content: center;
+    width: 100%; /* take the full width of the container */
   }
 }
