@@ -1,9 +1,10 @@
 /* Ensure the body takes up the full screen */
-body, html {
+body,
+html {
   margin: 0;
   padding: 0;
   height: 100%;
-  font-family: 'Helvetica Neue', Arial, sans-serif;
+  font-family: "Helvetica Neue", Arial, sans-serif;
 }
 
 /* Background image setup */
@@ -11,7 +12,7 @@ body, html {
   position: relative;
   height: 100vh;
   width: 100%;
-  background-image: url('UME\ Skyline\ Drive.JPG'); /* Remember to update your path */
+  background-image: url("UME\ Skyline\ Drive.JPG"); /* Remember to update your path */
   background-size: cover;
   background-position: center;
   display: flex;
@@ -46,11 +47,21 @@ body, html {
 
 /* 2. The continuous rolling wave for the border */
 @keyframes rollingWave {
-  0%   { border-radius: 43% 57% 41% 59% / 53% 45% 58% 42%; }
-  25%  { border-radius: 57% 43% 59% 41% / 45% 53% 42% 58%; }
-  50%  { border-radius: 43% 57% 41% 59% / 58% 42% 53% 45%; }
-  75%  { border-radius: 59% 41% 57% 43% / 42% 58% 45% 53%; }
-  100% { border-radius: 43% 57% 41% 59% / 53% 45% 58% 42%; }
+  0% {
+    border-radius: 43% 57% 41% 59% / 53% 45% 58% 42%;
+  }
+  25% {
+    border-radius: 57% 43% 59% 41% / 45% 53% 42% 58%;
+  }
+  50% {
+    border-radius: 43% 57% 41% 59% / 58% 42% 53% 45%;
+  }
+  75% {
+    border-radius: 59% 41% 57% 43% / 42% 58% 45% 53%;
+  }
+  100% {
+    border-radius: 43% 57% 41% 59% / 53% 45% 58% 42%;
+  }
 }
 
 /* The main container styling */
@@ -59,10 +70,10 @@ body, html {
   z-index: 2;
   display: inline-block;
   text-decoration: none;
-  padding: 3.5rem 5.5rem; /* Spacious padding to let the wave move */
+  padding: 1.5rem 3.5rem; /* Spacious padding to let the wave move */
   text-align: center;
-  
-  opacity: 0; 
+
+  opacity: 0;
   animation: fadeAndSlideUp 1.5s ease-out 0.5s forwards;
 }
 
@@ -70,13 +81,13 @@ body, html {
 .logo-container::before {
   content: "";
   position: absolute;
-  top: 0; 
-  left: 0; 
-  right: 0; 
+  top: 0;
+  left: 0;
+  right: 0;
   bottom: 0;
   border: 3px solid #ffffff;
   z-index: -1; /* Puts the border behind the text */
-  
+
   /* Applies the wave animation */
   animation: rollingWave 6s linear infinite;
   transition: background-color 0.3s ease;
@@ -88,7 +99,6 @@ body, html {
   cursor: pointer;
 }
 
-
 .logo-text {
   color: #ffffff;
   font-size: 2rem;
@@ -96,7 +106,16 @@ body, html {
   text-transform: uppercase;
   letter-spacing: 0.8em;
   margin: 0;
-  margin-right: -0.8em; 
+  margin-right: -0.8em;
+}
+
+/* styling for the optional logo image */
+.logo-image {
+  max-width: 100%; /* scale down on smaller screens */
+  height: auto; /* preserve aspect ratio */
+  display: block; /* remove inline whitespace */
+  margin: 0 auto; /* center inside container */
+  max-height: 500px; /* limit vertical size */
 }
 
 /* Responsive adjustments for mobile */
@@ -105,7 +124,7 @@ body, html {
     padding: 2rem 2.5rem;
     border-width: 2px;
   }
-  
+
   .logo-text {
     font-size: 1.2rem;
     letter-spacing: 0.5em;
