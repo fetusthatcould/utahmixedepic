@@ -39,7 +39,7 @@ document.addEventListener("DOMContentLoaded", () => {
   if (!galleryContainer) return;
 
   const baseDir = "Photos UME Website-3-001/Photos UME Website/";
-  const totalAvailable = 19; // as before
+  const totalAvailable = 18;          // as before
   const imagesToDisplay = 9;
   const selectedNumbers = [];
 
@@ -62,15 +62,11 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
     // Creating the internal HTML structure
-    // All photo files on the live host use uppercase .JPG. Windows ignores case,
-    // so you wouldn’t notice locally, but the server is case‑sensitive.
-    const ext = ".JPG";                          // hard‑code correct suffix
-    const imgSrc = `${baseDir}Photo${num}${ext}`;
-
-    // The HTML structure to match your CSS
+    // Note: Ensure your extension (jpg vs JPG) matches your files exactly!
+    const ext = num <= 9 ? ".jpg" : ".JPG";     // simple hack for your set
     item.innerHTML = `
-      <img src="${imgSrc}"
-         alt="Utah Mixed Epic Gallery"
+      <img src="${baseDir}Photo${num}${ext}"
+         alt="…"
          loading="lazy" />
     <div class="item-overlay"></div>
   `;
