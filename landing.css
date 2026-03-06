@@ -115,7 +115,7 @@ html {
   height: auto; /* preserve aspect ratio */
   display: block; /* remove inline whitespace */
   margin: 0 auto; /* center inside container */
-  max-height: 500px; /* limit vertical size */
+  max-height: 250px; /* limit vertical size */
 }
 
 /* Responsive adjustments for mobile */
