@@ -2,14 +2,14 @@ document.addEventListener("DOMContentLoaded", () => {
   const galleryContainer = document.getElementById("gallery-grid");
 
   if (!galleryContainer) return;
-  console.log("Images found by PHP:", allImages);
+  
   // 1. Fetch the list of images from your PHP script
   fetch("get-images.php")
     .then((response) => response.json())
     .then((allImages) => {
       // 2. Shuffle and pick 12 unique images
       const selected = allImages.sort(() => 0.5 - Math.random()).slice(0, 12);
-
+      console.log("Images found by PHP:", allImages);
       // 3. Loop through and inject the HTML
       selected.forEach((imgSrc, index) => {
         const item = document.createElement("div");
