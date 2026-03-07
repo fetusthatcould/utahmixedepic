@@ -1,5 +1,5 @@
 // Registration Timeline Management
-const REGISTRATION_OPEN_DATE = new Date("2026-06-25");
+const REGISTRATION_OPEN_DATE = new Date("2026-04-25");
 const RACE_DATE = new Date("2026-09-25");
 function checkRegistrationStatus() {
   const today = new Date();
@@ -24,7 +24,7 @@ function updateRegistrationBanner() {
       heroCTA.disabled = true;
       heroCTA.style.opacity = "0.6";
       heroCTA.style.cursor = "not-allowed";
-      heroCTA.title = "Registration opens June 25, 2026";
+      heroCTA.title = "Registration opens April 25, 2026";
     } else if (status === "registration-open") {
       heroCTA.disabled = false;
       heroCTA.style.opacity = "1";
@@ -66,7 +66,7 @@ function updateRegistrationPageStatus() {
       "registration-status-container pre-registration";
     statusContainer.innerHTML = `
       <div class="status-content">
-        <h3>Registration Opens June 25, 2026</h3>
+        <h3>Registration Opens April 25, 2026</h3>
         </div>
     `;
     statusContainer.style.display = "block";

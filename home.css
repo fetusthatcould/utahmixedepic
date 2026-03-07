@@ -199,7 +199,7 @@
   text-align: center;
 }
 
-/* ===== 04. OZARK-STYLE MASONRY GALLERY ===== */
+
 .gallery-section {
   padding: var(--spacing-xxl) 0;
   background-color: var(--bg-white);
@@ -222,78 +222,170 @@
   margin-bottom: var(--spacing-xs);
 }
 
-.masonry-gallery {
-  column-count: 3;
-  column-gap: 15px;
-  width: 100%;
+/* ===== 04. SIDE-SCROLLING CAROUSEL GALLERY ===== */
+.gallery-section {
+  padding: var(--spacing-xxl) 0;
+  background-color: var(--bg-white);
+  overflow: hidden; /* Prevents horizontal scroll on the whole page */
 }
 
-.masonry-item {
-  display: inline-block;
-  width: 100%;
-  margin-bottom: 15px;
+.carousel-gallery {
+  display: flex;
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  gap: 20px;
+  padding: 10px var(--spacing-md) var(--spacing-md); 
+  -webkit-overflow-scrolling: touch; /* Smooth scrolling on iOS */
+}
+
+/* Customizing the scrollbar to match your theme */
+.carousel-gallery::-webkit-scrollbar {
+  height: 8px;
+}
+.carousel-gallery::-webkit-scrollbar-thumb {
+  background: var(--accent-color);
+  border-radius: 4px;
+}
+.carousel-gallery::-webkit-scrollbar-track {
+  background: var(--border-color);
+  border-radius: 4px;
+  margin: 0 var(--spacing-md);
+}
+
+.carousel-item {
+  /* This shows ~80% of one image, teasing the next one off-screen */
+  flex: 0 0 85%; 
+  max-width: 450px;
+  scroll-snap-align: center;
   border-radius: 4px;
   overflow: hidden;
   background: var(--bg-light);
-  transition: transform 0.3s ease;
+  position: relative;
 }
 
-.masonry-item img {
+.carousel-item img {
   width: 100%;
-  height: 100%;
+  height: 350px; /* Forces a uniform height for a clean carousel track */
+  object-fit: cover; /* Ensures images fill the box without squishing */
   display: block;
   filter: grayscale(10%) contrast(1.05);
-  transition:
-    filter 0.3s ease,
-    transform 0.5s ease;
+  transition: filter 0.3s ease, transform 0.5s ease;
 }
 
-.masonry-item:hover img {
+.carousel-item:hover img {
   filter: grayscale(0%) contrast(1);
   transform: scale(1.03);
 }
 
-/* ===== 05. CTA SECTION ===== */
+/* ===== 05. ENHANCED CTA SECTION ===== */
 .cta-section {
-  background: linear-gradient(
-    135deg,
-    var(--primary-color),
-    var(--secondary-color)
-  );
+  /* Creates a richer, darker gradient background */
+  background: linear-gradient(135deg, var(--text-dark) 0%, var(--primary-color) 100%);
   color: var(--bg-white);
   text-align: center;
-  padding: var(--spacing-xxl) var(--spacing-md);
+  padding: 5rem var(--spacing-md);
+  position: relative;
+  border-top: 4px solid var(--accent-color);
 }
 
-.cta-section h2,
-.cta-section p {
+.cta-section h2 {
   color: var(--bg-white);
+  font-size: 2.5rem;
+  margin-bottom: var(--spacing-sm);
 }
 
-.cta-button-secondary {
-  display: inline-block;
-  padding: var(--spacing-md) var(--spacing-lg);
+.cta-section p {
+  color: var(--bg-light);
+  font-size: 1.2rem;
+  max-width: 600px;
+  margin: 0 auto 2.5rem auto;
+}
+
+/* ===== THE BUTTON ===== */
+.cta-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  padding: 1rem 2.5rem;
   background-color: var(--accent-color);
   color: var(--bg-white);
-  border-radius: var(--border-radius);
+  text-decoration: none;
+  font-size: 1.1rem;
   font-weight: 700;
   text-transform: uppercase;
-  letter-spacing: 1px;
-  margin-top: var(--spacing-md);
-  transition: var(--transition);
+  letter-spacing: 1.5px;
+  border-radius: 50px; /* Gives it a modern pill shape */
+  
+  /* Creates a subtle colored glow effect */
+  box-shadow: 0 4px 15px rgba(193, 122, 74, 0.4); 
+  border: 2px solid transparent;
+  transition: all 0.3s ease;
 }
 
-.cta-button-secondary:hover {
-  background-color: #ff5722;
+.cta-button .arrow {
+  transition: transform 0.3s ease;
+}
+
+/* Hover Animation Effects */
+.cta-button:hover {
+  background-color: var(--primary-color);
+  border-color: var(--accent-color);
+  color: var(--accent-color);
+  box-shadow: 0 6px 20px rgba(193, 122, 74, 0.6);
+  transform: translateY(-3px); /* Lifts the button up slightly */
+}
+
+.cta-button:hover .arrow {
+  transform: translateX(5px); /* Slides the arrow to the right */
+}
+
+/* ===== 06. ABOUT BLURB SECTION ===== */
+.about-blurb-section {
+  padding: var(--spacing-xxl) 0;
+  background-color: var(--bg-white); /* Keeps it bright to contrast with the dark CTA or Footer */
+  text-align: center;
+  border-top: 1px solid var(--border-color);
+}
+
+.blurb-content {
+  max-width: 800px; /* Keeps the paragraph from getting too wide and hard to read */
+  margin: 0 auto;
+  padding: 0 var(--spacing-md);
+}
+
+.blurb-content h2 {
+  color: var(--text-dark);
+  font-size: 2.2rem;
+  margin-bottom: var(--spacing-sm);
+}
+
+.blurb-content p {
+  color: var(--text-light);
+  font-size: 1.15rem;
+  line-height: 1.8;
+  margin-bottom: var(--spacing-lg);
+}
+
+/* ===== SECONDARY OUTLINE BUTTON ===== */
+/* This piggybacks off your existing .cta-button class but overrides the colors */
+.outline-button {
+  background-color: transparent;
+  justify-self: center;
+  border: 2px solid var(--accent-color);
+  color: var(--accent-color);
+  box-shadow: none; /* Removes the glowing shadow for a cleaner look */
+}
+
+.outline-button:hover {
+  background-color: var(--accent-color);
+  color: var(--bg-white);
+  border-color: var(--accent-color);
+  box-shadow: 0 4px 15px rgba(193, 122, 74, 0.3); /* Adds a subtle shadow on hover */
   transform: translateY(-3px);
 }
-
 /* ===== 06. HOME RESPONSIVE OVERRIDES ===== */
-@media (max-width: 992px) {
-  .masonry-gallery {
-    column-count: 2;
-  }
-}
+
 
 @media (max-width: 768px) {
   .hero {
@@ -307,8 +399,3 @@
   }
 }
 
-@media (max-width: 600px) {
-  .masonry-gallery {
-    column-count: 1;
-  }
-}
