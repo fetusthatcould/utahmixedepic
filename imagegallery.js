@@ -3,7 +3,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
   if (!galleryContainer) return;
 
-  const baseDir = "Photos UME Website-3-001/Photos UME Website/";
+  const baseDir = "Photos UME Website/";
   const totalAvailable = 26;          
   const imagesToDisplay = 9;
   const selectedNumbers = [];

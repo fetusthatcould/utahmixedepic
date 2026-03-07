@@ -1,5 +1,5 @@
 // Registration Timeline Management
-const REGISTRATION_OPEN_DATE = new Date("2026-04-25");
+const REGISTRATION_OPEN_DATE = new Date("2026-06-25");
 const RACE_DATE = new Date("2026-09-25");
 function checkRegistrationStatus() {
   const today = new Date();
@@ -24,7 +24,7 @@ function updateRegistrationBanner() {
       heroCTA.disabled = true;
       heroCTA.style.opacity = "0.6";
       heroCTA.style.cursor = "not-allowed";
-      heroCTA.title = "Registration opens April 25, 2026";
+      heroCTA.title = "Registration opens June 25, 2026";
     } else if (status === "registration-open") {
       heroCTA.disabled = false;
       heroCTA.style.opacity = "1";
@@ -66,7 +66,7 @@ function updateRegistrationPageStatus() {
       "registration-status-container pre-registration";
     statusContainer.innerHTML = `
       <div class="status-content">
-        <h3>Registration Opens April 25, 2026</h3>
+        <h3>Registration Opens June 25, 2026</h3>
         </div>
     `;
     statusContainer.style.display = "block";
@@ -100,11 +100,81 @@ function updateRegistrationPageStatus() {
 }
 
 // Registration Form - Category Selection
+// Photo gallery settings - Google Apps Script Proxy for Google Photos
+const PHOTO_GALLERY_ENDPOINT =
+  "https://script.google.com/macros/s/AKfycbztMjSixByUSEWmK8emv4iOldbrdXQVc2NkIpXLuHqueSa2ubk8WnOofPv0lwtk_lyH/exec";
+
+function loadPhotoGallery() {
+  console.log("🖼️ Gallery loader starting...");
+
+  if (!PHOTO_GALLERY_ENDPOINT) {
+    console.warn("⚠️ Photo gallery endpoint not configured");
+    return;
+  }
+
+  console.log("📡 Fetching from:", PHOTO_GALLERY_ENDPOINT);
+
+  fetch(PHOTO_GALLERY_ENDPOINT, {
+    method: "GET",
+    cache: "no-cache",
+  })
+    .then((resp) => {
+      console.log("📨 Response status:", resp.status, resp.statusText);
+      if (!resp.ok) {
+        throw new Error(`HTTP ${resp.status}: ${resp.statusText}`);
+      }
+      return resp.json();
+    })
+    .then((data) => {
+      console.log("📦 Raw response data:", data);
+
+      // Handle error response from Apps Script
+      if (data.error) {
+        console.error("❌ Gallery error from script:", data.error);
+        return;
+      }
+
+      const photoUrls = Array.isArray(data) ? data : [];
+      console.log("✓ Photo URLs found:", photoUrls.length);
+
+      if (photoUrls.length === 0) {
+        return;
+      }
+
+      const gallery = document.querySelector(".masonry-gallery");
+      if (!gallery) {
+        console.error("❌ Gallery element not found in DOM");
+        return;
+      }
+
+      console.log(
+        "🎨 Clearing gallery and adding",
+        photoUrls.length,
+        "photos...",
+      );
+      gallery.innerHTML = "";
+      photoUrls.forEach((url, idx) => {
+        const item = document.createElement("div");
+        item.className = "masonry-item" + (idx % 5 === 0 ? " tall" : "");
+        const img = document.createElement("img");
+        img.src = url;
+        img.alt = "Gallery image";
+        img.loading = "lazy";
+        item.appendChild(img);
+        gallery.appendChild(item);
+      });
+      console.log("✅ Gallery loaded successfully!");
+    })
+    .catch((err) => {
+      console.error("❌ Gallery load error:", err.message, err);
+    });
+}
 
 // (No pricing calculations needed - event is free)
 
 // Form Submission
 document.addEventListener("DOMContentLoaded", function () {
+  loadPhotoGallery();
   updateRegistrationBanner();
   updateRegistrationPageStatus();
   const registrationForm = document.getElementById("registrationForm");
@@ -380,42 +450,102 @@ document.querySelectorAll('a[href^="#"]').forEach((anchor) => {
   });
 });
 
-// Mobile menu functionality
+// Mobile menu functionality (if needed)
 function initializeMobileMenu() {
-  const hamburger = document.getElementById("hamburger");
-  const navLinks = document.querySelector(".nav-links");
+  // Support multiple navbars if present
+  const navbars = document.querySelectorAll(".navbar");
 
-  if (hamburger && navLinks) {
-    // Clone and replace to prevent duplicate event listeners if initialized multiple times
-    const newHamburger = hamburger.cloneNode(true);
-    hamburger.parentNode.replaceChild(newHamburger, hamburger);
+  navbars.forEach((navbar) => {
+    const navLinks = navbar.querySelector(".nav-links");
+    if (!navLinks) return;
 
-    newHamburger.addEventListener("click", function () {
-      newHamburger.classList.toggle("active");
-      navLinks.classList.toggle("active");
+    // If a mobile toggle already exists, keep it; otherwise create one
+    let toggle = navbar.querySelector(".mobile-toggle");
+    if (!toggle) {
+      toggle = document.createElement("button");
+      toggle.className = "mobile-toggle";
+      toggle.setAttribute("aria-expanded", "false");
+      toggle.setAttribute("aria-label", "Toggle navigation");
+      toggle.innerHTML = '<span class="hamburger-line"></span><span class="hamburger-line"></span><span class="hamburger-line"></span>';
+      // Insert toggle at the start of the navbar for consistency
+      navbar.insertBefore(toggle, navbar.firstChild);
+    }
+
+    // Toggle handler
+    function openMenu() {
+      navLinks.classList.add("open");
+      toggle.classList.add("active");
+      toggle.setAttribute("aria-expanded", "true");
+      document.body.classList.add("nav-open");
+    }
+
+    function closeMenu() {
+      navLinks.classList.remove("open");
+      toggle.classList.remove("active");
+      toggle.setAttribute("aria-expanded", "false");
+      document.body.classList.remove("nav-open");
+    }
+
+    toggle.addEventListener("click", function (e) {
+      e.stopPropagation();
+      if (navLinks.classList.contains("open")) {
+        closeMenu();
+      } else {
+        openMenu();
+      }
     });
 
-    // Close menu when a link is clicked
-    const links = navLinks.querySelectorAll("a");
-    links.forEach((link) => {
-      link.addEventListener("click", () => {
-        newHamburger.classList.remove("active");
-        navLinks.classList.remove("active");
+    // Close when clicking a link
+    navLinks.querySelectorAll("a").forEach((a) => {
+      a.addEventListener("click", function () {
+        closeMenu();
       });
     });
-  }
-}
 
-// Initialize on page load
-window.addEventListener("DOMContentLoaded", function () {
-  initializeMobileMenu();
-});
+    // Close when clicking outside
+    document.addEventListener("click", function (e) {
+      if (!navbar.contains(e.target)) {
+        closeMenu();
+      }
+    });
+
+    // Close on Escape
+    document.addEventListener("keydown", function (e) {
+      if (e.key === "Escape") closeMenu();
+    });
+
+    // Ensure menu state matches viewport size
+    function adaptForViewport() {
+      if (window.innerWidth > 768) {
+        // Desktop: ensure menu visible and toggle not active
+        navLinks.classList.remove("open");
+        toggle.classList.remove("active");
+        toggle.setAttribute("aria-expanded", "false");
+        document.body.classList.remove("nav-open");
+      }
+    }
+
+    // Run once now
+    adaptForViewport();
+
+    // Also run on resize (debounced lightly)
+    let resizeTimer;
+    window.addEventListener("resize", function () {
+      clearTimeout(resizeTimer);
+      resizeTimer = setTimeout(adaptForViewport, 150);
+    });
+  });
+}
 
 // Initialize on page load
 window.addEventListener("load", function () {
   initializeMobileMenu();
 });
 
+// Also initialize as soon as DOM is ready so all pages get the mobile nav
+document.addEventListener("DOMContentLoaded", function () {
+  initializeMobileMenu();
+});
 // Handle window resize
 window.addEventListener("resize", function () {
   initializeMobileMenu();
