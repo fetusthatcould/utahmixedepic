@@ -117,6 +117,20 @@ html {
   margin: 0 auto; /* center inside container */
   max-height: 500px; /* limit vertical size */
 }
+/* ===== STRATEGIC STEALTH: SEO HIDING ===== */
+
+.visually-hidden, 
+.hero-content-brief {
+  position: absolute !important;
+  width: 1px !important;
+  height: 1px !important;
+  padding: 0 !important;
+  margin: -1px !important;
+  overflow: hidden !important;
+  clip: rect(0, 0, 0, 0) !important;
+  white-space: nowrap !important;
+  border: 0 !important;
+}
 
 /* Responsive adjustments for mobile */
 @media (max-width: 768px) {
