@@ -1,0 +1,222 @@
+/* ===== RESULTS: TACTICAL RAIL DASHBOARD ===== */
+
+.results-dashboard {
+  width: 100%;
+  background-color: #f0f2f5; /* Gutter Color */
+  display: flex;
+  justify-content: center;
+  padding: 80px 0;
+}
+
+.dashboard-container {
+  display: grid;
+  /* The Secret: 280px Side Rail + 850px Center Stage = 1130px Total */
+  grid-template-columns: 280px 850px;
+  gap: 0;
+
+  width: fit-content;
+  height: 100%;
+  margin: 0 auto;
+  box-shadow: 0 30px 60px rgba(0, 0, 0, 0.12);
+  border-radius: 8px;
+  overflow: hidden;
+
+  
+}
+
+/* 01. Hero Side Panel (The Left Rail) */
+.hero-metric-box {
+  background: var(--text-light);
+  color: var(--bg-white);
+  padding: 60px 30px; /* Tighter horizontal padding */
+  border-left: 8px solid var(--accent-color);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between; /* Spans the full height evenly */
+  text-align: right; /* Aligns toward the center element */
+}
+
+.hero-metric-box h2 {
+  font-size: 1.6rem;
+  color: var(--accent-color);
+  margin-bottom: 20px;
+}
+.hero-metric-box h4 {
+  font-size: 1rem;
+  color: var(--accent-light);
+  margin-bottom: 0;
+}
+
+.hero-metric-box p {
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  color: var(--bg-white);
+  letter-spacing: 2px;
+  opacity: 0.7;
+}
+
+/* 02. Data Card Main (The Central Element) */
+.data-card-main {
+  background: var(--bg-white);
+  padding: 60px; /* Deep, luxury padding for the main stage */
+  display: grid;
+  grid-template-columns: 1fr .8fr;
+  gap: 40px;
+  border-left: 1px solid var(--border-color);
+
+  /* THIS PREVENTS OVERFLOW: Force children to shrink */
+  min-width: 0; 
+  overflow: hidden;
+}
+
+/* Header inside the main element */
+.data-card-main h3 {
+  grid-column: span 2;
+  font-size: 2rem;
+  margin-top: 0;
+  border-bottom: 2px solid var(--accent-color);
+  padding-bottom: 15px;
+}
+
+/* 03. Tiles Below (Matched to Total Width) */
+.achievement-row {
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+  margin-top: 30px;
+  width: 1130px; /* Matches the exact width of the main bar */
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.achievement-tile {
+  background: var(--bg-white);
+  padding: 30px;
+  flex: 1;
+  border: 1px solid var(--border-color);
+  border-top: 5px solid var(--primary-color);
+}
+/* ===== INTERNAL RAIL COMPONENTS (Sidebar) ===== */
+
+.leaderboard-rail {
+  margin-top: var(--spacing-md);
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+  padding-top: var(--spacing-md);
+  height: fit-content;
+}
+
+.leaderboard-rail h4 {
+  font-family: monospace;
+  font-size: 1.25rem;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  color: var(--bg-white);
+  margin-bottom: var(--spacing-lg);
+  opacity: 0.9;
+}
+
+.rail-item {
+  margin-bottom: var(--spacing-lg);
+  padding-left: var(--spacing-sm);
+  border-left: 2px solid rgba(255, 255, 255, 0.1);
+}
+
+.rail-item strong {
+  display: block;
+  font-size: 0.9rem;
+  color: var(--bg-white);
+  text-transform: uppercase;
+  margin-bottom: 4px;
+}
+
+.rail-item p {
+  font-family: monospace;
+  font-size: 0.8rem;
+  color: var(--bg-light); /* Subtle contrast against the dark background */
+  margin: 0;
+  line-height: 1.4;
+}
+
+/* ===== RIDER LIST COMPONENTS (Central Stage) ===== */
+
+.rider-list {
+  background: var(--bg-light); /* Subtle grey box to contain the list */
+  padding: var(--spacing-lg);
+  border-radius: 4px;
+  border: 1px solid var(--border-color);
+}
+
+.rider-list h4 {
+  font-size: 0.85rem;
+  text-transform: uppercase;
+  letter-spacing: 1.5px;
+  color: var(--primary-color);
+  border-bottom: 2px solid var(--border-color);
+  padding-bottom: 10px;
+  margin-bottom: 15px;
+}
+
+.checklist {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+/* 3. THE COLUMN FIX: Prevents the rider list from pushing the walls */
+.stats-overview, 
+.rider-list {
+  min-width: 0; /* Forces the div to respect the grid track width */
+}
+
+/* 4. THE LIST FIX: Handle long names or times */
+.checklist li {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 10px; /* Ensures name and time don't touch */
+  width: 100%;
+}
+
+.checklist li strong {
+  /* If a name is too long, it will truncate with '...' instead of breaking the box */
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  flex-shrink: 1; 
+}
+
+.checklist li span.time {
+  flex-shrink: 0; /* Ensures the time never gets squished */
+  font-family: monospace;
+  font-weight: 700;
+  color: var(--primary-color);
+}
+
+/* 5. THE TAG WRAP: Ensure the Archive tag doesn't push the column */
+.stats-overview .info-tag {
+  max-width: 100%;
+  white-space: normal;
+  word-wrap: break-word;
+}
+/* Styles for the time/elapsed data */
+.checklist li::after {
+  content: attr(data-time); /* Optional: if you use data attributes */
+  font-family: monospace;
+  font-weight: 600;
+  color: var(--primary-color);
+}
+
+/* RESPONSIVE: Safe Stacking */
+@media (max-width: 1200px) {
+  .dashboard-container {
+    grid-template-columns: 1fr;
+    width: 90%;
+  }
+  .hero-metric-box {
+    text-align: left;
+  }
+  .achievement-row {
+    width: 90%;
+    flex-direction: column;
+  }
+}
