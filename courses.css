@@ -13,6 +13,14 @@
   flex: 1.2; /* Map takes priority in the layout */
   background:var(--accent-color);
   min-height: 500px;
+  display: flex;
+}
+
+.course-map-side iframe {
+  width: 100%;
+  height: auto;
+  align-self: stretch;
+  border: none;
 }
 
 .course-info-side {
